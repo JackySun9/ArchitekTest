@@ -2,6 +2,9 @@ import { Ollama } from '@langchain/community/llms/ollama';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { Tool } from '@langchain/core/tools';
 import { EnhancedRAGEngine } from './enhanced-rag';
+import { VisualTestingTool } from './visual-testing-tool';
+import { SelfHealingTool } from './self-healing-tool';
+import { EnhancedDebuggingTool } from './enhanced-debugging-tool';
 import { chromium } from 'playwright';
 import fs from 'fs-extra';
 import path from 'path';
@@ -940,7 +943,10 @@ export class TestGenerationAgent {
       new PageAnalysisTool(),
       new CodebaseQueryTool(this.ragEngine),
       new TestScenarioGeneratorTool(this.llm),
-      new CodeGeneratorTool(this.llm)
+      new CodeGeneratorTool(this.llm),
+      new VisualTestingTool(),
+      new SelfHealingTool(),
+      new EnhancedDebuggingTool()
     ];
   }
 

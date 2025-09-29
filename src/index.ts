@@ -5,15 +5,19 @@ import { hideBin } from 'yargs/helpers';
 import { EnhancedRAGEngine } from './enhanced-rag';
 import { TestGenerationAgent } from './test-generation-agent';
 import { TestSuiteUpdater, UPDATE_MODES } from './test-updater';
+import { VisualTestingTool } from './visual-testing-tool';
+import { SelfHealingTool } from './self-healing-tool';
+import { EnhancedDebuggingTool } from './enhanced-debugging-tool';
 import fs from 'fs-extra';
 import path from 'path';
 
 const CLI_BANNER = `
 ╔══════════════════════════════════════════════════════════════╗
-║                    Test Architect AI v3.0                   ║
-║          AI-Powered Test Generation with LangChain          ║
+║                    Test Architect AI v3.1                   ║
+║       AI-Powered Test Generation with Advanced Tools        ║
 ║                                                              ║
-║  🤖 Intelligent  🔒 Privacy-First  🏗️ Enterprise-Grade     ║
+║  🧠 ReAct Agent  📸 Visual Testing  🔧 Self-Healing        ║
+║  🔍 Debug Analysis  🔒 Privacy-First  🏗️ Enterprise-Grade  ║
 ╚══════════════════════════════════════════════════════════════╝
 `;
 
@@ -22,7 +26,7 @@ async function main() {
   
   await yargs(hideBin(process.argv))
     .scriptName('test-architect-ai')
-    .version('3.0.0')
+    .version('3.1.0')
     .command(
       'embed [directory]',
       '🧠 Embed codebase for intelligent pattern reuse',
@@ -253,6 +257,208 @@ async function main() {
           Object.entries(UPDATE_MODES).forEach(([mode, info]) => {
             const status = (info as any).recommended ? '🏆' : (info as any).safe ? '✅' : (info as any).destructive ? '⚠️' : '🔧';
             console.log(`  ${status} ${mode}: ${info.description}`);
+          });
+        }
+      }
+    )
+    .command(
+      'visual-test',
+      '📸 Perform visual regression testing with screenshot comparison',
+      (yargs: any) => {
+        return yargs
+          .option('url', {
+            type: 'string',
+            demandOption: true,
+            description: 'URL to test visually'
+          })
+          .option('test-name', {
+            type: 'string',
+            demandOption: true,
+            description: 'Name for the visual test'
+          })
+          .option('selector', {
+            type: 'string',
+            description: 'CSS selector to screenshot (optional - full page if not provided)'
+          })
+          .option('threshold', {
+            type: 'number',
+            default: 0.2,
+            description: 'Pixel difference threshold (0-1)'
+          })
+          .option('update-baseline', {
+            type: 'boolean',
+            default: false,
+            description: 'Update the baseline image'
+          })
+          .example('$0 visual-test --url https://example.com --test-name homepage', 'Test full page')
+          .example('$0 visual-test --url https://example.com --test-name login-form --selector "#login-form"', 'Test specific element');
+      },
+      async (argv: any) => {
+        console.log(`📸 Visual Testing: ${argv.testName}`);
+        
+        const visualTool = new VisualTestingTool();
+        const result = await visualTool._call(JSON.stringify({
+          url: argv.url,
+          testName: argv.testName,
+          selector: argv.selector,
+          fullPage: !argv.selector,
+          config: { threshold: argv.threshold }
+        }));
+        
+        const testResult = JSON.parse(result);
+        
+        if (testResult.error) {
+          console.error('❌ Visual test failed:', testResult.error);
+        } else if (testResult.hasDifferences) {
+          console.log('⚠️ Visual differences detected!');
+          console.log(`   Diff pixels: ${testResult.diffPixelCount}`);
+          console.log(`   Diff percentage: ${testResult.diffPercentage.toFixed(2)}%`);
+          if (testResult.diffPath) {
+            console.log(`   Diff image: ${testResult.diffPath}`);
+          }
+        } else {
+          console.log('✅ Visual test passed - no differences detected');
+        }
+        
+        if (argv.updateBaseline && testResult.screenshotPath) {
+          await visualTool.updateBaseline(argv.testName, testResult.screenshotPath);
+        }
+      }
+    )
+    .command(
+      'heal',
+      '🔧 Automatically fix broken test selectors using self-healing capabilities',
+      (yargs: any) => {
+        return yargs
+          .option('url', {
+            type: 'string',
+            demandOption: true,
+            description: 'URL where the test is failing'
+          })
+          .option('selector', {
+            type: 'string',
+            demandOption: true,
+            description: 'The broken selector to fix'
+          })
+          .option('test-file', {
+            type: 'string',
+            demandOption: true,
+            description: 'Path to the test file containing the broken selector'
+          })
+          .option('context', {
+            type: 'string',
+            description: 'Additional context about what the selector should target'
+          })
+          .example('$0 heal --url https://example.com --selector "#old-button" --test-file teams/auth/login.spec.ts', 'Fix broken selector');
+      },
+      async (argv: any) => {
+        console.log(`🔧 Self-Healing: Analyzing broken selector`);
+        console.log(`❌ Broken: ${argv.selector}`);
+        
+        const healingTool = new SelfHealingTool();
+        const result = await healingTool._call(JSON.stringify({
+          url: argv.url,
+          brokenSelector: argv.selector,
+          testFile: argv.testFile,
+          context: argv.context || `Selector from ${argv.testFile}`
+        }));
+        
+        const healingResult = JSON.parse(result);
+        
+        if (healingResult.success) {
+          console.log('✅ Self-healing successful!');
+          console.log(`   Old: ${healingResult.originalSelector}`);
+          console.log(`   New: ${healingResult.newSelector}`);
+          console.log(`   Confidence: ${healingResult.confidence}%`);
+          console.log(`   Reasoning: ${healingResult.reasoning}`);
+          if (healingResult.backupCreated) {
+            console.log(`   Backup: Created backup of original test file`);
+          }
+        } else {
+          console.log('❌ Self-healing failed');
+          console.log(`   Reason: ${healingResult.reasoning}`);
+          if (healingResult.error) {
+            console.log(`   Error: ${healingResult.error}`);
+          }
+        }
+      }
+    )
+    .command(
+      'debug',
+      '🔍 Analyze test failures and provide debugging insights',
+      (yargs: any) => {
+        return yargs
+          .option('action', {
+            type: 'string',
+            choices: ['analyze_failure', 'generate_report', 'analyze_flaky_tests'],
+            default: 'analyze_failure',
+            description: 'Type of debug analysis to perform'
+          })
+          .option('test-name', {
+            type: 'string',
+            description: 'Name of the failed test'
+          })
+          .option('error-message', {
+            type: 'string',
+            description: 'Error message from the test failure'
+          })
+          .option('test-file', {
+            type: 'string',
+            description: 'Path to the test file'
+          })
+          .option('results-dir', {
+            type: 'string',
+            default: 'test-results',
+            description: 'Directory containing test results'
+          })
+          .example('$0 debug --test-name "login test" --error-message "Selector not found" --test-file teams/auth/login.spec.ts', 'Analyze specific failure');
+      },
+      async (argv: any) => {
+        console.log(`🔍 Debug Analysis: ${argv.action}`);
+        
+        const debugTool = new EnhancedDebuggingTool();
+        
+        let debugData;
+        if (argv.action === 'analyze_failure') {
+          debugData = {
+            testName: argv.testName || 'Unknown test',
+            errorMessage: argv.errorMessage || 'No error message provided',
+            stackTrace: '',
+            testFile: argv.testFile || 'Unknown file',
+            timestamp: new Date()
+          };
+        } else if (argv.action === 'generate_report') {
+          debugData = { testResultsDir: argv.resultsDir };
+        }
+        
+        const result = await debugTool._call(JSON.stringify({
+          action: argv.action,
+          data: debugData
+        }));
+        
+        const analysis = JSON.parse(result);
+        
+        if (analysis.error) {
+          console.error('❌ Debug analysis failed:', analysis.error);
+          console.log('\n💡 Suggestions:');
+          analysis.suggestions?.forEach((suggestion: string, i: number) => {
+            console.log(`   ${i + 1}. ${suggestion}`);
+          });
+        } else if (argv.action === 'analyze_failure') {
+          console.log('\n📋 Debug Analysis Results:');
+          console.log(`   Summary: ${analysis.summary}`);
+          console.log(`   Root Cause: ${analysis.rootCause}`);
+          console.log(`   Category: ${analysis.category} (${analysis.priority} priority)`);
+          console.log(`   Confidence: ${analysis.confidence}%`);
+          
+          console.log('\n🔧 Suggested Fixes:');
+          analysis.suggestedFixes?.forEach((fix: string, i: number) => {
+            console.log(`   ${i + 1}. ${fix}`);
+          });
+          
+          console.log('\n🔍 Debugging Steps:');
+          analysis.debuggingSteps?.forEach((step: string, i: number) => {
+            console.log(`   ${i + 1}. ${step}`);
           });
         }
       }
