@@ -1,0 +1,31 @@
+{
+  "name": "test-architect-ai",
+  "version": "0.1.0",
+  "description": "A command-line tool that uses AI to generate Playwright tests.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "tsc --noEmit",
+    "start": "ts-node src/index.ts",
+    "test": "playwright test",
+    "test-models": "ts-node scripts/test-models.ts"
+  },
+  "dependencies": {
+    "@langchain/community": "^0.3.0",
+    "@langchain/core": "^0.3.0",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "glob": "^10.4.2",
+    "langchain": "^0.2.5",
+    "playwright": "^1.45.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.14.2",
+    "@types/yargs": "^17.0.32",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2"
+  }
+}
