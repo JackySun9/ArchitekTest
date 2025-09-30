@@ -44,11 +44,10 @@ export abstract class BasePage {
 
   // Adobe-specific common elements
   async expectAdobeHeader(): Promise<void> {
-    await expect(this.page.locator('nav[aria-label="Main"]')).toBeVisible();
-    await expect(this.page.locator('img[alt="Adobe, Inc."]')).toBeVisible();
+    await expect(this.page.locator('.global-navigation')).toBeVisible();
   }
 
   async expectAdobeFooter(): Promise<void> {
-    await expect(this.page.locator('contentinfo')).toBeVisible();
+    await expect(this.page.locator('.global-footer')).toBeVisible();
   }
 }

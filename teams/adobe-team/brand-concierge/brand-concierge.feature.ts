@@ -10,6 +10,15 @@ export interface TestScenario {
   testData?: any;
 }
 
+/**
+ * Brand Concierge Test Scenarios
+ * 
+ * SCOPE: These tests focus ONLY on body > main content specific to Brand Concierge
+ * EXCLUDES: Global header/footer tests (see teams/adobe-team/global/adobe-global.feature.ts)
+ * 
+ * Active Scenarios: BC001-BC004, BC007-BC011 (9 scenarios)
+ * Moved to Global: BC005-BC006 (Header), BC012 (Footer)
+ */
 export const BRAND_CONCIERGE_SCENARIOS: TestScenario[] = [
   {
     id: 'BC001',
@@ -94,45 +103,11 @@ export const BRAND_CONCIERGE_SCENARIOS: TestScenario[] = [
     testData: { queries: BRAND_CONCIERGE_QUERIES }
   },
 
-  {
-    id: 'BC005',
-    description: 'Verify main navigation functionality',
-    priority: 'medium',
-    category: 'functional',
-    steps: [
-      'Navigate to Brand Concierge page',
-      'Test each main navigation item',
-      'Verify dropdown menus appear on hover/click',
-      'Test navigation to different sections'
-    ],
-    expectedResults: [
-      'All navigation items are clickable',
-      'Dropdown menus display relevant options',
-      'Navigation leads to correct pages/sections',
-      'Navigation state is properly maintained'
-    ],
-    testData: { navigationItems: NAVIGATION_ITEMS }
-  },
-
-  {
-    id: 'BC006',
-    description: 'Test sign-in functionality and app switcher',
-    priority: 'medium',
-    category: 'functional',
-    steps: [
-      'Navigate to Brand Concierge page',
-      'Click sign-in button',
-      'Verify sign-in process initiation',
-      'Test app switcher button',
-      'Verify app switcher menu'
-    ],
-    expectedResults: [
-      'Sign-in button is visible and clickable',
-      'Sign-in flow is initiated correctly',
-      'App switcher displays available applications',
-      'App switcher menu is properly formatted'
-    ]
-  },
+  // ============================================================================
+  // BC005 and BC006: Moved to teams/adobe-team/global/adobe-global.feature.ts
+  // These test global header components (navigation, sign-in, app switcher)
+  // See ADOBE_GLOBAL_SCENARIOS: GH002 (Navigation), GH003 (Sign-in), GH004 (App switcher)
+  // ============================================================================
 
   {
     id: 'BC007',
@@ -237,28 +212,13 @@ export const BRAND_CONCIERGE_SCENARIOS: TestScenario[] = [
       'Network errors are handled with user-friendly messages',
       'Rapid clicks don\'t cause UI issues'
     ]
-  },
-
-  {
-    id: 'BC012',
-    description: 'Verify footer links and corporate information',
-    priority: 'low',
-    category: 'functional',
-    steps: [
-      'Navigate to Brand Concierge page',
-      'Scroll to footer section',
-      'Verify all footer categories are present',
-      'Test footer links functionality',
-      'Verify social media links'
-    ],
-    expectedResults: [
-      'Footer contains all expected categories',
-      'All footer links are working and lead to correct pages',
-      'Social media links open in new tabs',
-      'Corporate information is up to date',
-      'Footer design is consistent with Adobe branding'
-    ]
   }
+
+  // ============================================================================
+  // BC012: Moved to teams/adobe-team/global/adobe-global.feature.ts
+  // Footer is a global component tested separately
+  // See ADOBE_GLOBAL_SCENARIOS: GF001-GF005 (Footer presence, sections, products, social, legal)
+  // ============================================================================
 ];
 
 // Test data for different scenarios

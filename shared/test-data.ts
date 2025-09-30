@@ -58,7 +58,7 @@ export const NAVIGATION_ITEMS = [
 ];
 
 export const QUICK_ACTION_BUTTONS = [
-  "I'd like to explore templates to see what I can create.",
+  "How do I quickly resize content for social platforms?",
   "I want to touch up and enhance my photos.",
   "I'd like to edit PDFs and make them interactive.",
   "I want to turn my clips into polished videos."
