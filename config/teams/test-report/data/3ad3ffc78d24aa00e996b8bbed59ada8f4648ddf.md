@@ -1,0 +1,9 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - heading "Access Denied" [level=1] [ref=e2]
+  - text: You don't have permission to access "http://www.stage.adobe.com/cc-shared/fragments/uar/brand-concierge/brand-concierge" on this server.
+  - paragraph [ref=e3]: "Reference #18.9ea33017.1759285522.e808a30"
+  - paragraph [ref=e4]: https://errors.edgesuite.net/18.9ea33017.1759285522.e808a30
+```

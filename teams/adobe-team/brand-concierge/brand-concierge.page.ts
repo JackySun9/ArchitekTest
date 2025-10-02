@@ -1,5 +1,7 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from '../../../shared/base-page';
+import { ADOBE_PAGES, getPageURL } from '../../../config/teams/adobe-urls';
+import { ENVIRONMENTS, getTeamEnvironment } from '../../../config/environments';
 
 /**
  * Brand Concierge Page Object
@@ -8,6 +10,8 @@ import { BasePage } from '../../../shared/base-page';
  * EXCLUDES: Global header/footer elements (see teams/adobe-team/global/adobe-global.page.ts)
  */
 export class BrandConciergePage extends BasePage {
+  private env: 'dev' | 'stage' | 'prod';
+  private baseURL: string;
   // Main page elements - using flexible selectors
   private readonly pageHeading: Locator;
   private readonly pageDescription: Locator;
@@ -23,8 +27,12 @@ export class BrandConciergePage extends BasePage {
   
   // Note: Global navigation elements moved to AdobeGlobalPage
 
-  constructor(page: Page) {
+  constructor(page: Page, env: 'dev' | 'stage' | 'prod' = 'stage') {
     super(page);
+    
+    // Set environment
+    this.env = env;
+    this.baseURL = ENVIRONMENTS.adobe[env].baseURL;
     
     // Main content - flexible selectors
     this.pageHeading = page.locator('h1, h2').first();
@@ -42,9 +50,17 @@ export class BrandConciergePage extends BasePage {
 
   // Navigation methods
   async navigateToBrandConcierge(): Promise<void> {
-    await this.navigate('https://www.stage.adobe.com/cc-shared/fragments/uar/brand-concierge/brand-concierge');
+    const url = getPageURL(this.baseURL, ADOBE_PAGES.brandConcierge);
+    await this.navigate(url);
     await this.waitForPageLoad();
     await this.page.waitForSelector('h1, h2', { timeout: 10000 }).catch(() => {});
+  }
+
+  /**
+   * Get the full URL for any Adobe page
+   */
+  getURL(pagePath: string): string {
+    return getPageURL(this.baseURL, pagePath);
   }
 
   // Page verification methods

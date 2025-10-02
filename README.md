@@ -545,17 +545,63 @@ We welcome contributions! The project is designed with extensibility in mind:
 
 ## 📝 **License**
 
-MIT License - Build amazing things!
+Licensed under the Apache License, Version 2.0 - See [LICENSE](LICENSE) file for details.
 
-## 🆘 **Support & Resources**
+```
+Copyright 2025 ArchitekTest Contributors
 
-- **Architecture**: See `BLUEPRINT.md` for detailed v3.1 architecture
-- **Examples**: Check `teams/adobe-team/brand-concierge/` for comprehensive real-world example
-- **Implementation**: Review `IMPLEMENTATION_SUMMARY.md` for technical details
-- **Model Guide**: See `YOUR_MODEL_RECOMMENDATIONS.md` for AI model selection
-- **Better Approaches**: Check `BETTER_APPROACHES.md` for advanced usage patterns
-- **Visual Testing**: Check `visual-tests/` directory for screenshot examples
-- **Debug Reports**: Review `debug-reports/` for AI-generated analysis examples
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+## 📚 **Documentation**
+
+### Quick Access
+- **[Quick Reference](QUICK_REFERENCE.md)** - Essential commands and patterns at a glance
+
+### Getting Started
+- **[Quick Start Guide](docs/getting-started/QUICK_START.md)** - Get up and running in 5 minutes
+- **[Setup Guide](docs/getting-started/SETUP_GUIDE.md)** - Detailed installation and configuration
+- **[AI Features Guide](docs/getting-started/GETTING_STARTED_AI.md)** - Using AI-powered test generation
+
+### Architecture & Design
+- **[Blueprint](docs/architecture/BLUEPRINT.md)** - Complete v3.1 architecture overview
+- **[Enhanced Architecture](docs/architecture/YOUR_ENHANCED_ARCHITECTURE.md)** - Framework design details
+- **[Framework Comparison](docs/architecture/FRAMEWORK_COMPARISON.md)** - Comparison with Nala framework
+- **[10 Teams Architecture](docs/architecture/10_TEAMS_ARCHITECTURE.md)** - Scaling to multiple teams
+
+### Configuration
+- **[Playwright Config Guide](docs/configuration/PLAYWRIGHT_CONFIG_GUIDE.md)** - Playwright configuration
+- **[URL Management](docs/configuration/PAGE_URLS_GUIDE.md)** - URL and environment configuration
+- **[Config Comparison](docs/configuration/CONFIG_COMPARISON.md)** - Configuration options
+
+### AI Features
+- **[AI Test Generation Guide](docs/ai-features/AI_TEST_GENERATION_GUIDE.md)** - Comprehensive AI features guide
+- **[Agent Implementation](docs/ai-features/AGENT_IMPLEMENTATION.md)** - AI agent architecture
+- **[How It All Works](docs/ai-features/HOW_IT_ALL_WORKS.md)** - System architecture explained
+
+### Guides & Best Practices
+- **[Test Design Best Practices](docs/guides/TEST_DESIGN_BEST_PRACTICES.md)** - Professional test design patterns
+- **[Scaling Guide](docs/guides/SCALING_GUIDE.md)** - Scale to 10+ teams
+- **[Migration Guide](docs/guides/MIGRATION_GUIDE.md)** - Migration strategies
+- **[Better Approaches](docs/guides/BETTER_APPROACHES.md)** - Advanced usage patterns
+
+### Examples
+- **Real-world Example**: `teams/adobe-team/brand-concierge/` - Comprehensive test suite
+- **Visual Tests**: `visual-tests/` - Screenshot comparison examples
+- **Debug Reports**: `debug-reports/` - AI-generated analysis examples
+
+### Archive
+- **[Historical Documentation](docs/archive/)** - Archived and superseded documentation
 
 ## 🏆 **Success Stories**
 

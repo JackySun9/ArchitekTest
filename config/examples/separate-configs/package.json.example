@@ -1,0 +1,29 @@
+{
+  "name": "separate-configs-example",
+  "description": "Example package.json scripts for separate config approach",
+  "scripts": {
+    "comment": "=== Separate Config Approach Scripts ===",
+    
+    "test": "playwright test",
+    
+    "test:adobe": "playwright test --config=playwright.config.adobe.ts",
+    "test:adobe:dev": "TEST_ENV=dev playwright test --config=playwright.config.adobe.ts",
+    "test:adobe:stage": "TEST_ENV=stage playwright test --config=playwright.config.adobe.ts",
+    "test:adobe:prod": "TEST_ENV=prod playwright test --config=playwright.config.adobe.ts",
+    
+    "test:search": "playwright test --config=playwright.config.search.ts",
+    "test:search:dev": "TEST_ENV=dev playwright test --config=playwright.config.search.ts",
+    "test:search:stage": "TEST_ENV=stage playwright test --config=playwright.config.search.ts",
+    
+    "test:auth": "playwright test --config=playwright.config.auth.ts",
+    "test:ai": "playwright test --config=playwright.config.ai.ts",
+    
+    "test:all": "npm run test:adobe && npm run test:search && npm run test:auth && npm run test:ai",
+    "test:all:parallel": "concurrently \"npm run test:adobe\" \"npm run test:search\" \"npm run test:auth\" \"npm run test:ai\"",
+    
+    "report": "playwright show-report",
+    "report:adobe": "playwright show-report test-report-adobe",
+    "report:search": "playwright show-report test-report-search"
+  }
+}
+

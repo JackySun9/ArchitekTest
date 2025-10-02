@@ -1,0 +1,66 @@
+# CODEOWNERS - Define who owns what code
+# 
+# This file ensures that the right team reviews changes to their tests
+# and configurations.
+#
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# ============================================================================
+# Global/Shared Code - Requires approval from test-infrastructure team
+# ============================================================================
+/shared/                      @test-infrastructure-team
+/config/playwright.config.base.ts  @test-infrastructure-team
+/config/environments.ts       @test-infrastructure-team
+/.github/workflows/           @test-infrastructure-team
+/package.json                 @test-infrastructure-team
+/tsconfig.json                @test-infrastructure-team
+
+# ============================================================================
+# Team-Specific Configurations - Each team owns their own
+# ============================================================================
+/config/teams/adobe.config.ts       @adobe-team
+/config/teams/search.config.ts      @search-team
+/config/teams/auth.config.ts        @auth-team
+/config/teams/ai.config.ts          @ai-team
+/config/teams/payment.config.ts     @payment-team
+/config/teams/analytics.config.ts   @analytics-team
+/config/teams/notification.config.ts @notification-team
+/config/teams/messaging.config.ts   @messaging-team
+/config/teams/profile.config.ts     @profile-team
+/config/teams/settings.config.ts    @settings-team
+
+# ============================================================================
+# Team Test Directories - Each team owns their tests
+# ============================================================================
+/teams/adobe-team/            @adobe-team
+/teams/search-team/           @search-team
+/teams/auth-team/             @auth-team
+/teams/ai-team/               @ai-team
+/teams/payment-team/          @payment-team
+/teams/analytics-team/        @analytics-team
+/teams/notification-team/     @notification-team
+/teams/messaging-team/        @messaging-team
+/teams/profile-team/          @profile-team
+/teams/settings-team/         @settings-team
+
+# ============================================================================
+# Documentation - Multiple reviewers
+# ============================================================================
+/README.md                    @test-infrastructure-team
+/SCALING_GUIDE.md             @test-infrastructure-team
+/PLAYWRIGHT_CONFIG_GUIDE.md   @test-infrastructure-team
+*.md                          @test-infrastructure-team
+
+# ============================================================================
+# Example: Team-Specific Page Objects
+# ============================================================================
+# If teams share page objects, you can be more granular:
+# /teams/adobe-team/brand-concierge/  @adobe-team @adobe-brand-squad
+# /teams/adobe-team/creative-cloud/   @adobe-team @adobe-cc-squad
+
+# ============================================================================
+# Example: Require Multiple Approvals for Critical Files
+# ============================================================================
+# Critical files need approval from both team and infrastructure:
+# /config/playwright.config.base.ts   @test-infrastructure-team @platform-team
+

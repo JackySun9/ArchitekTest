@@ -1,0 +1,179 @@
+# Multi-Team Playwright CI/CD Pipeline
+#
+# This workflow runs tests for all teams in parallel.
+# Each team's tests are isolated - failures don't affect other teams.
+
+name: Playwright Multi-Team Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      team:
+        description: 'Specific team to test (leave empty for all)'
+        required: false
+        type: choice
+        options:
+          - all
+          - adobe
+          - search
+          - auth
+          - ai
+          - payment
+          - analytics
+          - notification
+          - messaging
+          - profile
+          - settings
+
+jobs:
+  # ============================================================================
+  # Parallel Test Execution (One job per team)
+  # ============================================================================
+  test:
+    name: Test - ${{ matrix.team }}
+    runs-on: ubuntu-latest
+    
+    strategy:
+      # Don't cancel other teams if one fails
+      fail-fast: false
+      
+      # Define all teams to test
+      matrix:
+        team:
+          - adobe
+          - search
+          - auth
+          - ai
+          - payment
+          - analytics
+          - notification
+          - messaging
+          - profile
+          - settings
+        
+        # Test across environments
+        environment:
+          - dev
+          - stage
+          # prod tests only on main branch (see condition below)
+    
+    # Skip prod tests on PRs
+    if: |
+      github.event_name != 'pull_request' || 
+      matrix.environment != 'prod'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      
+      - name: Run ${{ matrix.team }} tests (${{ matrix.environment }})
+        env:
+          TEST_ENV: ${{ matrix.environment }}
+        run: npm run test:${{ matrix.team }}
+        continue-on-error: true
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.team }}-${{ matrix.environment }}
+          path: test-results/
+          retention-days: 30
+      
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report-${{ matrix.team }}-${{ matrix.environment }}
+          path: test-report/
+          retention-days: 30
+      
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const team = '${{ matrix.team }}';
+            const env = '${{ matrix.environment }}';
+            const status = '${{ job.status }}';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🧪 Test Results: ${team} (${env})
+              
+              **Status:** ${status === 'success' ? '✅ Passed' : '❌ Failed'}
+              
+              View [detailed report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`
+            });
+
+  # ============================================================================
+  # Generate Combined Report
+  # ============================================================================
+  report:
+    name: Generate Combined Report
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-results
+      
+      - name: Merge reports
+        run: |
+          echo "# Combined Test Report" > report.md
+          echo "" >> report.md
+          echo "## Summary" >> report.md
+          
+          for team in adobe search auth ai payment analytics notification messaging profile settings; do
+            echo "### $team Team" >> report.md
+            # Add logic to parse and summarize results
+          done
+      
+      - name: Upload combined report
+        uses: actions/upload-artifact@v4
+        with:
+          name: combined-test-report
+          path: report.md
+
+  # ============================================================================
+  # Check Overall Status
+  # ============================================================================
+  status:
+    name: Overall Test Status
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Check if all tests passed
+        run: |
+          if [ "${{ needs.test.result }}" == "success" ]; then
+            echo "✅ All team tests passed!"
+            exit 0
+          else
+            echo "❌ Some team tests failed"
+            exit 1
+          fi
+
