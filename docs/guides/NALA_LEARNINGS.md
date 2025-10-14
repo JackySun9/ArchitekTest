@@ -6,26 +6,26 @@ This document summarizes what we've learned from Adobe's **actual production tes
 
 ### **📁 Complete Examples** (`/examples/nala-style/`)
 
-| Files | Description |
-|-------|-------------|
-| **Quote Block Example** (Simple) | |
-| `quote.spec.ts` | Test specifications + data |
-| `quote.page.ts` | Page object with locators |
-| `quote.test.ts` | Test implementation |
-| **Brand Concierge Example** (Full) | |
-| `brand-concierge.spec.ts` | Complete production-ready specs |
-| `brand-concierge.page.ts` | Comprehensive page object |
-| `brand-concierge.test.ts` | All test types (functional, a11y, perf) |
+| Files                              | Description                             |
+| ---------------------------------- | --------------------------------------- |
+| **Quote Block Example** (Simple)   |                                         |
+| `quote.spec.ts`                    | Test specifications + data              |
+| `quote.page.ts`                    | Page object with locators               |
+| `quote.test.ts`                    | Test implementation                     |
+| **Brand Concierge Example** (Full) |                                         |
+| `brand-concierge.spec.ts`          | Complete production-ready specs         |
+| `brand-concierge.page.ts`          | Comprehensive page object               |
+| `brand-concierge.test.ts`          | All test types (functional, a11y, perf) |
 
-### **📖 Documentation** 
+### **📖 Documentation**
 
-| Document | Purpose | Location |
-|----------|---------|----------|
-| **Index** | Navigation guide | `/examples/nala-style/INDEX.md` |
-| **README** | Complete guide | `/examples/nala-style/README.md` |
-| **Quick Reference** | Cheat sheet | `/examples/nala-style/QUICK_REFERENCE.md` |
-| **Milo/Nala Structure** | Deep dive | `/docs/guides/MILO_NALA_STRUCTURE.md` |
-| **What We Learned** | Analysis & recommendations | `/docs/guides/WHAT_WE_LEARNED_FROM_NALA.md` |
+| Document                | Purpose                    | Location                                    |
+| ----------------------- | -------------------------- | ------------------------------------------- |
+| **Index**               | Navigation guide           | `/examples/nala-style/INDEX.md`             |
+| **README**              | Complete guide             | `/examples/nala-style/README.md`            |
+| **Quick Reference**     | Cheat sheet                | `/examples/nala-style/QUICK_REFERENCE.md`   |
+| **Milo/Nala Structure** | Deep dive                  | `/docs/guides/MILO_NALA_STRUCTURE.md`       |
+| **What We Learned**     | Analysis & recommendations | `/docs/guides/WHAT_WE_LEARNED_FROM_NALA.md` |
 
 ## 🎯 The Core Pattern
 
@@ -49,6 +49,7 @@ feature/
 ## 📊 Your Structure vs Nala
 
 ### **Your Current (4 files)**
+
 ```
 brand-concierge/
 ├── brand-concierge.page.ts         ← Page object
@@ -59,6 +60,7 @@ brand-concierge/
 ```
 
 ### **Nala Pattern (3 files)**
+
 ```
 brand-concierge/
 ├── brand-concierge.spec.ts         ← Scenarios + Data
@@ -69,12 +71,14 @@ brand-concierge/
 ## 🏆 Verdict: Your Framework is Excellent!
 
 ### **What You Do Better**
+
 - ✅ **TypeScript** (Nala uses JavaScript)
 - ✅ **Rich Metadata** (JIRA, requirements, time estimates)
 - ✅ **Helper Functions** (filtering, querying)
 - ✅ **Better Organization**
 
 ### **What Nala Does Better**
+
 - ✅ **Simpler** (3 files vs 4)
 - ✅ **Battle-tested** (used in production)
 - ✅ **Easy onboarding** (very low learning curve)
@@ -84,6 +88,7 @@ brand-concierge/
 **Keep your current structure!** It's excellent. You've already incorporated Nala's best practices plus added significant improvements.
 
 **Only refactor if:**
+
 - You want maximum simplicity
 - You prefer Adobe's exact pattern
 - You're onboarding many new team members
@@ -119,16 +124,19 @@ npx playwright test examples/nala-style/ -g@critical
 ### **3. Read the Guides**
 
 Start with the **Quick Reference**:
+
 ```bash
 cat examples/nala-style/QUICK_REFERENCE.md
 ```
 
 Then read the **complete guide**:
+
 ```bash
 cat examples/nala-style/README.md
 ```
 
 For deep analysis:
+
 ```bash
 cat docs/guides/WHAT_WE_LEARNED_FROM_NALA.md
 ```
@@ -136,16 +144,19 @@ cat docs/guides/WHAT_WE_LEARNED_FROM_NALA.md
 ## 🎓 Key Learnings
 
 ### **1. Simplicity Wins**
+
 - 3 files per feature
 - Each file has clear purpose
 - Easy to navigate and maintain
 
 ### **2. Data-Driven is Powerful**
+
 - All test data in spec file
 - Easy to add/update tests
 - Non-technical people can maintain data
 
 ### **3. Tags Enable Flexibility**
+
 ```bash
 npx playwright test -g@smoke         # Smoke tests
 npx playwright test -g@critical      # Critical tests
@@ -154,12 +165,13 @@ npx playwright test -g"@smoke|@a11y" # Multiple tags
 ```
 
 ### **4. Test Steps Improve Clarity**
+
 ```typescript
 test('Example', async () => {
   await test.step('Step 1: Navigate', async () => {
     // ...
   });
-  
+
   await test.step('Step 2: Verify', async () => {
     // ...
   });
@@ -167,6 +179,7 @@ test('Example', async () => {
 ```
 
 ### **5. Production-Ready Patterns**
+
 - CSS validation
 - Performance metrics
 - Accessibility testing
@@ -176,18 +189,21 @@ test('Example', async () => {
 ## 💡 What to Adopt
 
 ### **✅ Definitely Keep**
+
 1. Your TypeScript setup
 2. Rich metadata (JIRA, requirements)
 3. Helper functions
 4. Current organization
 
 ### **🤔 Consider Adopting**
+
 1. 3-file pattern (if you want simplicity)
 2. Data in spec file (if convenient)
 3. Test steps (for clarity)
 4. CSS validation patterns
 
 ### **❌ Don't Change**
+
 1. TypeScript → JavaScript (yours is better!)
 2. Rich metadata → Basic (yours is better!)
 3. Your helper functions (very useful!)
@@ -195,50 +211,62 @@ test('Example', async () => {
 ## 📚 Navigation Guide
 
 ### **Want a Quick Overview?**
+
 → Read: `/examples/nala-style/QUICK_REFERENCE.md`
 
 ### **Want to Understand the Pattern?**
+
 → Read: `/examples/nala-style/README.md`
 → Look at: `quote.spec.ts`, `quote.page.ts`, `quote.test.ts`
 
 ### **Want Deep Analysis?**
+
 → Read: `/docs/guides/WHAT_WE_LEARNED_FROM_NALA.md`
 → Read: `/docs/guides/MILO_NALA_STRUCTURE.md`
 
 ### **Want Production Examples?**
+
 → Look at: `brand-concierge.spec.ts`, `brand-concierge.page.ts`, `brand-concierge.test.ts`
 
 ### **Want to Try It?**
+
 → Run: `npx playwright test examples/nala-style/`
 
 ## 🎯 Next Steps
 
 ### **Option A: Keep Current Structure** ⭐ Recommended
+
 Your structure is excellent! No changes needed.
 
 **Why?**
+
 - Already incorporates Nala's best practices
 - Has significant advantages (TypeScript, metadata)
 - Works well for your team
 - Production-ready
 
 ### **Option B: Simplify to 3 Files**
+
 Migrate to Nala's exact pattern.
 
 **Steps:**
+
 1. Merge `feature.ts` + `data.ts` → `spec.ts`
 2. Rename current `spec.ts` → `test.ts`
 3. Keep `page.ts` as-is
 
 **When?**
+
 - You want maximum simplicity
 - Prefer Adobe's exact pattern
 - Easy onboarding is critical
 
 ### **Option C: Hybrid Approach**
+
 Use 3-file pattern for new features, keep current for existing.
 
 **Why?**
+
 - Best of both worlds
 - Gradual migration
 - Try before committing
@@ -283,6 +311,3 @@ docs/guides/
 ---
 
 **Happy Testing!** 🎉
-
-
-

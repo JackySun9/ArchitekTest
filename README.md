@@ -13,7 +13,7 @@
 - 📸 **Visual Regression Testing**: Pixel-perfect screenshot comparison with automatic baseline management
 - 🔧 **Self-Healing Tests**: Automatically detects and repairs broken selectors with AI-powered suggestions
 - 🔍 **AI-Powered Debugging**: Intelligent failure analysis with root cause identification and fix recommendations
-- 🎯 **Dynamic Decision Making**: AI chooses the right tools based on context, not fixed pipelines  
+- 🎯 **Dynamic Decision Making**: AI chooses the right tools based on context, not fixed pipelines
 - 🔒 **Privacy-First**: Runs entirely locally with Ollama - no data leaves your machine
 - 🏗️ **Enterprise-Grade**: Generates comprehensive test suites with accessibility, performance, and security coverage
 - 📚 **Context-Aware**: Learns from your existing code patterns and reuses them intelligently
@@ -99,7 +99,7 @@ Watch the AI think through complex test generation:
 📚 Executing: Query Existing Patterns
 👁️ Observation: Retrieved existing code patterns and utilities
 
-🔄 ReAct Step 2: Reasoning about next action...  
+🔄 ReAct Step 2: Reasoning about next action...
 💭 Decision: analyze_page - URL provided, should analyze page structure
 🔍 Executing: Page Analysis
 👁️ Observation: Analyzed page and found 43 interactive elements
@@ -123,6 +123,7 @@ Watch the AI think through complex test generation:
 ## 🆕 **New in v3.1: Advanced Testing Capabilities**
 
 ### **📸 Visual Regression Testing**
+
 Detect UI changes with pixel-perfect accuracy:
 
 ```bash
@@ -140,6 +141,7 @@ npm run start -- visual-test --url https://myapp.com --test-name button --thresh
 ```
 
 **Features:**
+
 - ✅ Pixel-perfect screenshot comparison
 - ✅ Automatic baseline management
 - ✅ Configurable difference thresholds
@@ -148,6 +150,7 @@ npm run start -- visual-test --url https://myapp.com --test-name button --thresh
 - ✅ Automatic cleanup of old screenshots
 
 ### **🔧 Self-Healing Test Capabilities**
+
 Automatically repair broken tests when UI changes:
 
 ```bash
@@ -166,6 +169,7 @@ npm run start -- heal \
 ```
 
 **Self-Healing Process:**
+
 1. 🔍 **Analyze** the broken selector and page structure
 2. 🧠 **AI-powered** replacement selector generation
 3. ✅ **Verify** new selector works on live page
@@ -174,6 +178,7 @@ npm run start -- heal \
 6. 📋 **Report** changes and reasoning
 
 **Example Output:**
+
 ```bash
 ✅ Self-healing successful!
    Old: #submit-btn
@@ -184,6 +189,7 @@ npm run start -- heal \
 ```
 
 ### **🔍 Enhanced Debugging & Error Analysis**
+
 AI-powered test failure diagnosis:
 
 ```bash
@@ -201,6 +207,7 @@ npm run start -- debug --action analyze_flaky_tests
 ```
 
 **Debug Analysis Features:**
+
 - 🎯 **Root Cause Identification** with 85%+ accuracy
 - 🔧 **Specific Fix Suggestions** (3-5 actionable items)
 - 📊 **Error Pattern Recognition** (timeout, selector, network, etc.)
@@ -210,6 +217,7 @@ npm run start -- debug --action analyze_flaky_tests
 - 🔗 **Related Issue Detection** from test history
 
 **Example Debug Output:**
+
 ```bash
 📋 Debug Analysis Results:
    Summary: Test timeout waiting for checkout button visibility
@@ -233,6 +241,7 @@ npm run start -- debug --action analyze_flaky_tests
 ## 📊 **Real-World Example: Complete Testing Workflow**
 
 ### **Before (Manual Testing):**
+
 ```
 ❌ Test fails: "Selector '#old-submit' not found"
 ❌ Developer spends 30 minutes investigating
@@ -242,6 +251,7 @@ npm run start -- debug --action analyze_flaky_tests
 ```
 
 ### **After (AI-Powered v3.1):**
+
 ```bash
 # 1. Self-healing automatically fixes the selector
 npm run start -- heal --url https://myapp.com/form --selector "#old-submit" --test-file teams/forms/contact.spec.ts
@@ -262,6 +272,7 @@ npm run start -- debug --test-name "form submission" --error-message "Button sty
 ## 🏗️ **Enhanced Architecture**
 
 ### **v3.1 Advanced Tool Ecosystem**
+
 - **🧠 ReAct Agent**: Think → Act → Observe → Reflect → Repeat
 - **🎯 PageAnalysisTool**: Live Playwright page analysis (43+ elements detected)
 - **📚 CodebaseQueryTool**: Intelligent pattern retrieval from existing code
@@ -272,12 +283,14 @@ npm run start -- debug --test-name "form submission" --error-message "Button sty
 - **🔍 EnhancedDebuggingTool**: Intelligent failure analysis and debugging guidance
 
 ### **Enhanced RAG Memory Engine**
+
 - **Fixed Critical Bug**: No more data loss in vector store ✅
 - **Smart Chunking**: TypeScript-aware code understanding
 - **Enhanced Metadata**: Automatic code type detection
 - **Persistent Storage**: Robust `enhanced_vector_store.json`
 
 ### **Generated Test Structure**
+
 ```
 teams/your-team/feature-name/
 ├── feature-name.page.ts      # Page Object Model with 25+ methods
@@ -297,6 +310,7 @@ debug-reports/               # NEW in v3.1
 ## 📚 **Complete Commands Reference**
 
 ### **Core Test Generation**
+
 ```bash
 # Embed codebase for intelligent pattern reuse
 npm run start embed [--directory <dir>] [--verbose]
@@ -314,6 +328,7 @@ npm run start -- generate \
 ```
 
 ### **Smart Updates**
+
 ```bash
 npm run start -- update \
   --feature <feature-name> \
@@ -324,12 +339,14 @@ npm run start -- update \
 ```
 
 **Update Modes:**
+
 - 🏆 **smart-merge**: Intelligently merge new scenarios with existing ones (recommended)
 - ✅ **append-only**: Add new scenarios without modifying existing ones (safest)
 - 🔧 **selective**: Interactive mode - choose what to update (full control)
 - ⚠️ **replace-all**: Replace all scenarios (when starting fresh)
 
 ### **Visual Regression Testing** (NEW v3.1)
+
 ```bash
 # Full page visual testing
 npm run start -- visual-test \
@@ -351,6 +368,7 @@ npm run start -- visual-test \
 ```
 
 ### **Self-Healing Capabilities** (NEW v3.1)
+
 ```bash
 # Automatic selector repair
 npm run start -- heal \
@@ -361,6 +379,7 @@ npm run start -- heal \
 ```
 
 ### **Enhanced Debugging** (NEW v3.1)
+
 ```bash
 # Analyze specific test failure
 npm run start -- debug \
@@ -381,18 +400,20 @@ npm run start -- debug \
 ## 🎯 **Superior Test Quality**
 
 ### **Test Coverage Types**
+
 - **Functional Testing**: Specific user workflows with real UI elements
 - **Accessibility Testing**: WCAG 2.1 compliance with keyboard navigation
-- **Performance Testing**: Load times with measurable thresholds  
+- **Performance Testing**: Load times with measurable thresholds
 - **Security Testing**: Input validation and XSS prevention
 - **Visual Regression**: Pixel-perfect UI consistency validation
 - **Responsive Design**: Cross-device compatibility testing
 - **Error Handling**: Edge cases and graceful failure scenarios
 
 ### **Code Quality Features**
+
 - **Page Object Model**: Maintainable, reusable page classes extending shared base
 - **Data-Driven Testing**: Centralized test data with device configurations
-- **TypeScript**: 100% type safety with proper interfaces ✅ 
+- **TypeScript**: 100% type safety with proper interfaces ✅
 - **Self-Healing**: Automatic repair of broken selectors
 - **Visual Validation**: Screenshot-based regression testing
 - **AI Debugging**: Intelligent failure analysis and fix suggestions
@@ -402,6 +423,7 @@ npm run start -- debug \
 ## 🔧 **Configuration**
 
 ### **Recommended Model Setup**
+
 ```bash
 # Set the superior model as default
 export OLLAMA_MODEL=deepseek-r1:14b
@@ -414,6 +436,7 @@ export OLLAMA_FLASH_ATTENTION=1
 ```
 
 ### **Configuration File**
+
 Copy and customize `config.example.ts` to `config.ts`:
 
 ```typescript
@@ -431,16 +454,16 @@ export const CONFIG = {
   visualTesting: {
     threshold: 0.2,
     includeAA: true,
-    cleanupAfter: 5 // Keep last 5 screenshots
+    cleanupAfter: 5, // Keep last 5 screenshots
   },
   selfHealing: {
     createBackups: true,
-    confidenceThreshold: 70 // Minimum confidence for auto-fix
+    confidenceThreshold: 70, // Minimum confidence for auto-fix
   },
   debugging: {
     saveReports: true,
-    analysisDepth: 'comprehensive'
-  }
+    analysisDepth: 'comprehensive',
+  },
 };
 ```
 
@@ -468,22 +491,23 @@ npx playwright test --grep="visual" --headed
 
 ## 📈 **Performance & Quality Metrics**
 
-| Metric | Manual Creation | AI Generated (v3.0) | AI Generated (v3.1) | v3.1 Improvement |
-|--------|----------------|---------------------|---------------------|------------------|
-| **Development Time** | 40 hours | 2 hours | 1 hour | **97% faster** |
-| **Test Coverage** | 70% | 95% | 98% | **40% better** |
-| **Visual Regression** | ❌ None | ❌ None | ✅ Pixel-perfect | **New capability** |
-| **Self-Healing** | ❌ Manual fixes | ❌ Manual fixes | ✅ Automatic | **Autonomous** |
-| **Debug Analysis** | ❌ Basic | ❌ Basic | ✅ AI-powered | **Intelligent** |
-| **Scenario Quality** | Generic | Specific & Actionable | Highly Specific | **15x better** |
-| **Accessibility Coverage** | 20% | 90% | 95% | **375% better** |
-| **Code Quality** | Variable | Consistent | Self-Maintaining | **Autonomous** |
-| **Maintenance Effort** | High | Low | Minimal | **90% reduction** |
-| **Failure Recovery** | Manual | Manual | Automatic | **Self-healing** |
+| Metric                     | Manual Creation | AI Generated (v3.0)   | AI Generated (v3.1) | v3.1 Improvement   |
+| -------------------------- | --------------- | --------------------- | ------------------- | ------------------ |
+| **Development Time**       | 40 hours        | 2 hours               | 1 hour              | **97% faster**     |
+| **Test Coverage**          | 70%             | 95%                   | 98%                 | **40% better**     |
+| **Visual Regression**      | ❌ None         | ❌ None               | ✅ Pixel-perfect    | **New capability** |
+| **Self-Healing**           | ❌ Manual fixes | ❌ Manual fixes       | ✅ Automatic        | **Autonomous**     |
+| **Debug Analysis**         | ❌ Basic        | ❌ Basic              | ✅ AI-powered       | **Intelligent**    |
+| **Scenario Quality**       | Generic         | Specific & Actionable | Highly Specific     | **15x better**     |
+| **Accessibility Coverage** | 20%             | 90%                   | 95%                 | **375% better**    |
+| **Code Quality**           | Variable        | Consistent            | Self-Maintaining    | **Autonomous**     |
+| **Maintenance Effort**     | High            | Low                   | Minimal             | **90% reduction**  |
+| **Failure Recovery**       | Manual          | Manual                | Automatic           | **Self-healing**   |
 
 ## 🆕 **What's New in v3.1**
 
 ### ✅ **Major New Features**
+
 - **📸 Visual Regression Testing**: Pixel-perfect screenshot comparison with baseline management
 - **🔧 Self-Healing Tests**: Automatic detection and repair of broken selectors
 - **🔍 AI-Powered Debugging**: Intelligent failure analysis with root cause identification
@@ -494,20 +518,24 @@ npx playwright test --grep="visual" --headed
 ### **Example Quality Improvements:**
 
 #### **Visual Testing:**
+
 - **Before**: No visual validation - layout changes go unnoticed
 - **After**: Pixel-perfect detection of 0.1% visual differences with automatic baseline management
 
 #### **Self-Healing:**
+
 - **Before**: Test fails → Developer investigates → Manual fix → 30 minutes lost
 - **After**: Test fails → AI analyzes → Auto-repair → 30 seconds → Back to testing
 
 #### **Debug Analysis:**
+
 - **Before**: "Selector not found" → Generic troubleshooting
 - **After**: "Element hidden by loading overlay, wait for overlay disappearance, add explicit visibility check" → Specific solution
 
 ## 🔮 **Roadmap**
 
 ### ✅ **Completed (v3.1)**
+
 - [x] Visual regression testing with pixel-perfect comparison
 - [x] Self-healing test capabilities with AI-powered selector repair
 - [x] Enhanced debugging with intelligent failure analysis
@@ -515,6 +543,7 @@ npx playwright test --grep="visual" --headed
 - [x] Performance optimizations and ESM compatibility
 
 ### **Next (v3.2)**
+
 - [ ] **🤖 AI Test Generation from Screenshots** - Upload UI mockup, get comprehensive tests
 - [ ] **🔄 CI/CD Integration** - GitHub Actions for automated test generation and healing
 - [ ] **📊 Advanced Analytics Dashboard** - Test performance insights and trend analysis
@@ -522,12 +551,14 @@ npx playwright test --grep="visual" --headed
 - [ ] **📱 Mobile Testing Integration** - Appium support for mobile app testing
 
 ### **Medium-term (v3.5)**
+
 - [ ] **🎨 Design-to-Test Conversion** - Figma/Sketch integration for design-driven testing
 - [ ] **🗣️ Voice-Controlled Test Generation** - Natural language test creation
 - [ ] **🔄 Real-time Test Adaptation** - Tests that evolve with application changes
 - [ ] **🏢 Enterprise Team Management** - Multi-team collaboration and governance
 
 ### **Long-term (v4.0)**
+
 - [ ] **🧠 Advanced AI Models** - GPT-4V and specialized testing models
 - [ ] **☁️ Cloud Deployment Options** - Scalable cloud-based test generation
 - [ ] **🔗 API Testing Integration** - Full-stack test coverage
@@ -566,48 +597,53 @@ limitations under the License.
 ## 📚 **Documentation**
 
 ### Quick Access
+
 - **[Quick Reference](QUICK_REFERENCE.md)** - Essential commands and patterns at a glance
 
 ### Getting Started
+
 - **[Quick Start Guide](docs/getting-started/QUICK_START.md)** - Get up and running in 5 minutes
 - **[Setup Guide](docs/getting-started/SETUP_GUIDE.md)** - Detailed installation and configuration
 - **[AI Features Guide](docs/getting-started/GETTING_STARTED_AI.md)** - Using AI-powered test generation
 
 ### Architecture & Design
+
 - **[Blueprint](docs/architecture/BLUEPRINT.md)** - Complete v3.1 architecture overview
 - **[Enhanced Architecture](docs/architecture/YOUR_ENHANCED_ARCHITECTURE.md)** - Framework design details
 - **[Framework Comparison](docs/architecture/FRAMEWORK_COMPARISON.md)** - Comparison with Nala framework
 - **[10 Teams Architecture](docs/architecture/10_TEAMS_ARCHITECTURE.md)** - Scaling to multiple teams
 
 ### Configuration
+
 - **[Playwright Config Guide](docs/configuration/PLAYWRIGHT_CONFIG_GUIDE.md)** - Playwright configuration
 - **[URL Management](docs/configuration/PAGE_URLS_GUIDE.md)** - URL and environment configuration
 - **[Config Comparison](docs/configuration/CONFIG_COMPARISON.md)** - Configuration options
 
 ### AI Features
+
 - **[AI Test Generation Guide](docs/ai-features/AI_TEST_GENERATION_GUIDE.md)** - Comprehensive AI features guide
 - **[Agent Implementation](docs/ai-features/AGENT_IMPLEMENTATION.md)** - AI agent architecture
 - **[How It All Works](docs/ai-features/HOW_IT_ALL_WORKS.md)** - System architecture explained
 
 ### Guides & Best Practices
+
 - **[Test Design Best Practices](docs/guides/TEST_DESIGN_BEST_PRACTICES.md)** - Professional test design patterns
 - **[Scaling Guide](docs/guides/SCALING_GUIDE.md)** - Scale to 10+ teams
 - **[Migration Guide](docs/guides/MIGRATION_GUIDE.md)** - Migration strategies
 - **[Better Approaches](docs/guides/BETTER_APPROACHES.md)** - Advanced usage patterns
 
 ### Examples
+
 - **Real-world Example**: `teams/adobe-team/brand-concierge/` - Comprehensive test suite
 - **Visual Tests**: `visual-tests/` - Screenshot comparison examples
 - **Debug Reports**: `debug-reports/` - AI-generated analysis examples
 
-### Archive
-- **[Historical Documentation](docs/archive/)** - Archived and superseded documentation
-
 ## 🏆 **Success Stories**
 
 ### **Adobe Brand Concierge Validation**
+
 - ✅ **15 comprehensive test suites** covering all scenarios
-- ✅ **50+ individual test cases** with enterprise-grade quality  
+- ✅ **50+ individual test cases** with enterprise-grade quality
 - ✅ **95% functional coverage** including complex edge cases
 - ✅ **90% accessibility compliance** with WCAG 2.1
 - ✅ **Cross-device testing** for desktop, tablet, mobile
@@ -618,6 +654,7 @@ limitations under the License.
 **Time Investment:** 1 hour vs 40 hours manual creation (97% savings with v3.1)
 
 ### **E-commerce Platform Testing**
+
 - ✅ **Self-healing capabilities** repaired 23 broken selectors automatically
 - ✅ **Visual testing** caught 5 unintended layout changes
 - ✅ **AI debugging** reduced failure investigation time by 85%
@@ -625,6 +662,7 @@ limitations under the License.
 - ✅ **43 interactive elements** automatically detected and tested
 
 ### **SaaS Application Validation**
+
 - ✅ **Zero manual selector fixes** needed after UI updates
 - ✅ **100% visual regression coverage** for critical user flows
 - ✅ **AI-powered root cause analysis** for all test failures
@@ -637,6 +675,7 @@ limitations under the License.
 **Test Architect AI v3.1 represents a breakthrough in automated test generation and maintenance.** The combination of ReAct intelligence, visual regression testing, self-healing capabilities, and AI-powered debugging creates a tool that doesn't just generate code—it thinks, adapts, heals, and evolves like a senior QA engineer.
 
 **Key v3.1 Advantages:**
+
 - 📸 **Never miss visual regressions** with pixel-perfect testing
 - 🔧 **Tests heal themselves** when selectors break
 - 🔍 **AI diagnoses failures** and suggests specific fixes
@@ -669,4 +708,4 @@ npm run start -- heal \
 
 **Built with ❤️ for the testing community. Making AI work for developers, not the other way around.**
 
-*Test Architect AI v3.1 - Where artificial intelligence meets testing excellence.* 🚀
+_Test Architect AI v3.1 - Where artificial intelligence meets testing excellence._ 🚀

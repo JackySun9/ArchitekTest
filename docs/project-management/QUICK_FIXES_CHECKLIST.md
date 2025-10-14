@@ -8,6 +8,7 @@
 ## 🔴 Critical (Do Now - 2 hours)
 
 ### 1. Clean Git Repository
+
 ```bash
 # Remove deleted test report files
 git add -u config/teams/test-report/
@@ -19,6 +20,7 @@ git commit -m "chore: clean up test reports directory"
 ```
 
 ### 2. Fix Vector Store Tracking
+
 ```bash
 # Remove from git but keep file locally
 git rm --cached enhanced_vector_store.json
@@ -29,6 +31,7 @@ grep "enhanced_vector_store.json" .gitignore
 ```
 
 ### 3. Track Package Lock
+
 ```bash
 # Remove package-lock.json from .gitignore
 sed -i.bak '/^package-lock.json$/d' .gitignore
@@ -43,6 +46,7 @@ git commit -m "chore: track package-lock.json for dependency consistency"
 ## 🟡 High Priority (This Week - 1-2 days)
 
 ### 4. Setup ESLint & Prettier
+
 ```bash
 # Install dependencies
 npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin \
@@ -102,6 +106,7 @@ npm run lint:fix
 ```
 
 ### 5. Setup GitHub Actions CI
+
 ```bash
 # Create directory
 mkdir -p .github/workflows
@@ -119,35 +124,35 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node-version: [20.x]
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
-      
+
       - name: Run linting
         run: npm run lint
-      
+
       - name: Run tests
         run: npm test -- --project=adobe-chromium --reporter=html,json
         env:
           TEST_ENV: stage
-      
+
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: failure()
@@ -155,7 +160,7 @@ jobs:
           name: playwright-report
           path: test-report/
           retention-days: 30
-      
+
       - name: Upload test report
         uses: actions/upload-artifact@v4
         if: always()
@@ -183,6 +188,7 @@ git commit -m "ci: add GitHub Actions workflow"
 ```
 
 ### 6. Setup Pre-commit Hooks
+
 ```bash
 # Install husky and lint-staged
 npm install -D husky lint-staged
@@ -209,6 +215,7 @@ git commit -m "test: verify pre-commit hook"
 ```
 
 ### 7. Improve Logging
+
 ```bash
 # Create logger utility
 cat > shared/logger.ts << 'EOF'
@@ -279,6 +286,7 @@ sed -i.bak "s/console.log(/Logger.info(/g" teams/adobe-team/brand-concierge/bran
 ## 🟢 Medium Priority (Next 2 Weeks)
 
 ### 8. Environment Validation
+
 ```bash
 cat > config/env-validator.ts << 'EOF'
 /**
@@ -344,6 +352,7 @@ EOF
 ```
 
 ### 9. Enhanced BasePage
+
 ```bash
 # Add to shared/base-page.ts
 cat >> shared/base-page.ts << 'EOF'
@@ -371,9 +380,9 @@ cat >> shared/base-page.ts << 'EOF'
 
   // Screenshot helpers
   async takeScreenshot(name: string, fullPage = true): Promise<void> {
-    await this.page.screenshot({ 
+    await this.page.screenshot({
       path: `screenshots/${name}-${Date.now()}.png`,
-      fullPage 
+      fullPage
     });
   }
 
@@ -415,6 +424,7 @@ EOF
 ```
 
 ### 10. Add Security Scanning
+
 ```bash
 # Add npm audit to CI
 cat > .github/workflows/security.yml << 'EOF'
@@ -435,7 +445,7 @@ jobs:
         with:
           node-version: 20
       - run: npm audit --audit-level=moderate
-      
+
   dependency-review:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
@@ -453,6 +463,7 @@ git commit -m "ci: add security scanning"
 ## 🔵 Low Priority (When You Have Time)
 
 ### 11. Add CONTRIBUTING.md
+
 ```bash
 cat > CONTRIBUTING.md << 'EOF'
 # Contributing to ArchitekTest
@@ -534,12 +545,12 @@ After completing these fixes:
 
 ### Time Investment vs. Benefit
 
-| Priority | Time | Benefit |
-|----------|------|---------|
-| Critical | 2 hours | 🔥 Prevents serious issues |
-| High | 1-2 days | ⚡ Massive productivity boost |
-| Medium | 2-4 days | 📈 Significant improvement |
-| Low | Ongoing | 🎯 Professional polish |
+| Priority | Time     | Benefit                       |
+| -------- | -------- | ----------------------------- |
+| Critical | 2 hours  | 🔥 Prevents serious issues    |
+| High     | 1-2 days | ⚡ Massive productivity boost |
+| Medium   | 2-4 days | 📈 Significant improvement    |
+| Low      | Ongoing  | 🎯 Professional polish        |
 
 **Total time to "production-ready"**: ~3-4 days of focused work
 

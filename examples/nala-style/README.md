@@ -19,17 +19,20 @@ nala-style/
 
 ## 🎯 The 3-File Pattern
 
-### **1. *.spec.ts** - Test Specification + Data
+### **1. \*.spec.ts** - Test Specification + Data
+
 - What to test
 - Test data
 - Test metadata (tags, IDs, requirements)
 
-### **2. *.page.ts** - Page Object
+### **2. \*.page.ts** - Page Object
+
 - Locators (where things are)
 - CSS properties (for validation)
 - Simple helper methods
 
-### **3. *.test.ts** - Test Implementation
+### **3. \*.test.ts** - Test Implementation
+
 - Actual test logic
 - Uses spec and page object
 - Follows test steps
@@ -70,6 +73,7 @@ npx playwright test examples/nala-style -g"@smoke"
 Start with `quote.spec.ts`, `quote.page.ts`, and `quote.test.ts` to understand the basic pattern.
 
 **Key Points:**
+
 - Spec file has all test data in one place
 - Page object has ONLY locators
 - Test file uses both to execute tests
@@ -79,6 +83,7 @@ Start with `quote.spec.ts`, `quote.page.ts`, and `quote.test.ts` to understand t
 See `brand-concierge.spec.ts`, `brand-concierge.page.ts`, and `brand-concierge.test.ts` for a production-ready implementation.
 
 **Includes:**
+
 - Multiple test scenarios (BC001-BC010)
 - Rich metadata (JIRA tickets, requirements)
 - Tag-based execution
@@ -89,6 +94,7 @@ See `brand-concierge.spec.ts`, `brand-concierge.page.ts`, and `brand-concierge.t
 ## 🔄 Compare with Your Current Structure
 
 ### Your Current Structure (4 files)
+
 ```
 teams/adobe-team/brand-concierge/
 ├── brand-concierge.page.ts        ← Page object
@@ -99,6 +105,7 @@ teams/adobe-team/brand-concierge/
 ```
 
 ### Nala-Inspired Structure (3 files)
+
 ```
 teams/adobe-team/brand-concierge/
 ├── brand-concierge.spec.ts        ← Scenarios + metadata + data
@@ -115,21 +122,25 @@ teams/adobe-team/brand-concierge/
 ## 💡 Key Benefits
 
 ### **1. Simplicity**
+
 - Only 3 files per feature
 - Clear responsibility for each file
 - Easy to navigate
 
 ### **2. Maintainability**
+
 - Change test data? Edit spec file
-- Locator changed? Edit page file  
+- Locator changed? Edit page file
 - Test logic changed? Edit test file
 
 ### **3. Team Collaboration**
+
 - Product Owners can review/update spec files
 - Developers can maintain page objects
 - QA can write test implementations
 
 ### **4. Tag-Based Execution**
+
 ```bash
 # Run critical tests before deployment
 npx playwright test -g@critical
@@ -150,9 +161,9 @@ npx playwright test -g@ai
 import { BrandConciergeSpec } from './brand-concierge.spec';
 
 const feature = BrandConciergeSpec.features[0]; // BC001
-console.log(feature.data.expectedHeading);       // Access data
-console.log(feature.tags);                       // Access tags
-console.log(feature.tcid);                       // Test Case ID
+console.log(feature.data.expectedHeading); // Access data
+console.log(feature.tags); // Access tags
+console.log(feature.tcid); // Test Case ID
 ```
 
 ### Example 2: Using Page Object
@@ -164,10 +175,10 @@ import BrandConciergePage from './brand-concierge.page';
 test('Example', async ({ page }) => {
   const brandConciergePage = new BrandConciergePage(page);
   await brandConciergePage.goto('stage');
-  
+
   // Use locators
   await expect(brandConciergePage.pageHeading).toBeVisible();
-  
+
   // Use helper methods
   const metrics = await brandConciergePage.getPerformanceMetrics();
 });
@@ -184,45 +195,54 @@ const criticalTests = getFeaturesByTag('@critical');
 const aiTests = getFeaturesByTag('@ai');
 
 // Run specific tests
-smokeTests.forEach(feature => {
+smokeTests.forEach((feature) => {
   console.log(`Running ${feature.tcid}: ${feature.name}`);
 });
 ```
 
 ## 🎨 Best Practices
 
-### **Spec File (*.spec.ts)**
+### **Spec File (\*.spec.ts)**
+
 ✅ **DO:**
+
 - Keep all test data in one place
 - Use descriptive test case IDs (BC001, BC002)
 - Add rich metadata (tags, requirements, JIRA tickets)
 - Include helper functions for filtering
 
 ❌ **DON'T:**
+
 - Add test logic here
 - Add locators here
 - Make it too complex
 
-### **Page File (*.page.ts)**
+### **Page File (\*.page.ts)**
+
 ✅ **DO:**
+
 - Keep ONLY locators and simple helpers
 - Use flexible selectors for robustness
 - Add CSS properties for validation
 - Keep methods simple
 
 ❌ **DON'T:**
+
 - Add test logic here
 - Add complex business logic
 - Add test assertions
 
-### **Test File (*.test.ts)**
+### **Test File (\*.test.ts)**
+
 ✅ **DO:**
+
 - Use test steps for clarity
 - Reference spec for test data
 - Use page object for interactions
 - Keep tests readable
 
 ❌ **DON'T:**
+
 - Hardcode test data
 - Use direct selectors (use page object)
 - Make tests too long
@@ -302,18 +322,23 @@ npx playwright show-report
 ## ❓ Questions?
 
 ### Q: Should I refactor my existing tests?
+
 **A:** Not necessarily! Your current structure is excellent. Only refactor if:
+
 - You want maximum simplicity
 - You prefer Adobe's exact pattern
 - You're onboarding new team members frequently
 
 ### Q: What's the main advantage?
+
 **A:** Simplicity! 3 files vs 4 files, and everything for a feature is in one place.
 
 ### Q: Can I mix both approaches?
+
 **A:** Yes! You can have some features using the 3-file pattern and others using your current structure.
 
 ### Q: Do I lose any functionality?
+
 **A:** No! The Nala pattern supports everything you're currently doing - tags, metadata, rich test data, etc.
 
 ## 🏆 Summary
@@ -326,6 +351,3 @@ npx playwright show-report
 ---
 
 **Happy Testing!** 🎉
-
-
-

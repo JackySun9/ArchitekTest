@@ -13,45 +13,46 @@ feature-name/
 
 ## 📝 File Templates
 
-### **1. *.spec.ts** (Test Specification + Data)
+### **1. \*.spec.ts** (Test Specification + Data)
 
 ```typescript
 export const FeatureSpec = {
   name: 'Feature Name',
   features: [
     {
-      tcid: 'F001',                        // Test Case ID
-      name: '@Feature @smoke @critical',   // Name with tags
-      path: '/path/to/test',               // URL path
-      tags: ['@smoke', '@critical'],       // Tags array
+      tcid: 'F001', // Test Case ID
+      name: '@Feature @smoke @critical', // Name with tags
+      path: '/path/to/test', // URL path
+      tags: ['@smoke', '@critical'], // Tags array
       priority: 'critical',
       category: 'functional',
-      
-      data: {                              // Test data
+
+      data: {
+        // Test data
         expectedHeading: 'Hello World',
         buttons: ['Button 1', 'Button 2'],
       },
-      
-      requirements: ['REQ-001'],           // Optional
-      jiraTickets: ['JIRA-123'],          // Optional
-      estimatedTime: 60,                   // Optional (seconds)
+
+      requirements: ['REQ-001'], // Optional
+      jiraTickets: ['JIRA-123'], // Optional
+      estimatedTime: 60, // Optional (seconds)
     },
   ],
 };
 ```
 
-### **2. *.page.ts** (Page Object)
+### **2. \*.page.ts** (Page Object)
 
 ```typescript
 import { Page, Locator } from '@playwright/test';
 
 export default class FeaturePage {
   readonly page: Page;
-  
+
   // Locators
   readonly heading: Locator;
   readonly button: Locator;
-  
+
   // CSS properties (optional)
   readonly cssProperties = {
     heading: {
@@ -64,7 +65,7 @@ export default class FeaturePage {
     this.heading = page.locator('h1').first();
     this.button = page.locator('button').first();
   }
-  
+
   // Simple helpers only
   async goto() {
     await this.page.goto('/feature');
@@ -73,7 +74,7 @@ export default class FeaturePage {
 }
 ```
 
-### **3. *.test.ts** (Test Implementation)
+### **3. \*.test.ts** (Test Implementation)
 
 ```typescript
 import { test, expect } from '@playwright/test';
@@ -83,7 +84,6 @@ import { FeatureSpec } from './feature-name.spec';
 let page: FeaturePage;
 
 test.describe('Feature Test Suite', () => {
-  
   test.beforeEach(async ({ page: testPage }) => {
     page = new FeaturePage(testPage);
     await page.goto();
@@ -91,12 +91,12 @@ test.describe('Feature Test Suite', () => {
 
   test(`${FeatureSpec.features[0].name}`, async () => {
     const feature = FeatureSpec.features[0];
-    
+
     await test.step('Test step 1', async () => {
       await expect(page.heading).toBeVisible();
       await expect(page.heading).toContainText(feature.data.expectedHeading);
     });
-    
+
     await test.step('Test step 2', async () => {
       await expect(page.button).toBeEnabled();
     });
@@ -133,12 +133,14 @@ npx playwright test --project=chromium
 ### **Spec File** ✅ DO / ❌ DON'T
 
 ✅ **DO:**
+
 - Put all test data here
 - Use descriptive test case IDs
 - Add tags for filtering
 - Include metadata (JIRA, requirements)
 
 ❌ **DON'T:**
+
 - Add test logic
 - Add locators
 - Make it too complex
@@ -146,12 +148,14 @@ npx playwright test --project=chromium
 ### **Page File** ✅ DO / ❌ DON'T
 
 ✅ **DO:**
+
 - Keep ONLY locators
 - Use flexible selectors
 - Add simple helper methods
 - Document selectors
 
 ❌ **DON'T:**
+
 - Add test logic
 - Add test assertions
 - Add complex business logic
@@ -159,45 +163,47 @@ npx playwright test --project=chromium
 ### **Test File** ✅ DO / ❌ DON'T
 
 ✅ **DO:**
+
 - Use test steps
 - Get data from spec
 - Use page object for interactions
 - Keep tests readable
 
 ❌ **DON'T:**
+
 - Hardcode test data
 - Use direct selectors
 - Make tests too long
 
 ## 🏷️ Tag Conventions
 
-| Tag | Purpose | Example |
-|-----|---------|---------|
-| `@smoke` | Quick validation tests | Critical path tests |
-| `@regression` | Full test suite | All tests |
-| `@critical` | Must-pass tests | Blocking issues |
-| `@feature-name` | Feature-specific | `@brand-concierge` |
-| `@ai` | AI-related tests | Chat, recommendations |
-| `@a11y` | Accessibility tests | WCAG compliance |
-| `@performance` | Performance tests | Load times |
-| `@mobile` | Mobile-specific | Responsive design |
+| Tag             | Purpose                | Example               |
+| --------------- | ---------------------- | --------------------- |
+| `@smoke`        | Quick validation tests | Critical path tests   |
+| `@regression`   | Full test suite        | All tests             |
+| `@critical`     | Must-pass tests        | Blocking issues       |
+| `@feature-name` | Feature-specific       | `@brand-concierge`    |
+| `@ai`           | AI-related tests       | Chat, recommendations |
+| `@a11y`         | Accessibility tests    | WCAG compliance       |
+| `@performance`  | Performance tests      | Load times            |
+| `@mobile`       | Mobile-specific        | Responsive design     |
 
 ## 📊 Helper Functions
 
 ```typescript
 // Get features by tag
 export function getFeaturesByTag(tag: string): Feature[] {
-  return FeatureSpec.features.filter(f => f.tags.includes(tag));
+  return FeatureSpec.features.filter((f) => f.tags.includes(tag));
 }
 
 // Get feature by ID
 export function getFeatureById(tcid: string): Feature | undefined {
-  return FeatureSpec.features.find(f => f.tcid === tcid);
+  return FeatureSpec.features.find((f) => f.tcid === tcid);
 }
 
 // Get features by priority
 export function getFeaturesByPriority(priority: string): Feature[] {
-  return FeatureSpec.features.filter(f => f.priority === priority);
+  return FeatureSpec.features.filter((f) => f.priority === priority);
 }
 
 // Usage in tests
@@ -233,6 +239,7 @@ const criticalTests = getFeaturesByPriority('critical');
 ## 📚 Examples
 
 See full examples in this folder:
+
 - `quote.spec.ts`, `quote.page.ts`, `quote.test.ts` - Simple
 - `brand-concierge.spec.ts`, `brand-concierge.page.ts`, `brand-concierge.test.ts` - Full
 
@@ -245,11 +252,9 @@ See full examples in this folder:
 ## 💡 Key Takeaway
 
 **3 files, 3 purposes:**
+
 1. **Spec** = What to test + data
 2. **Page** = Where things are
 3. **Test** = How to test
 
 That's it! 🎉
-
-
-

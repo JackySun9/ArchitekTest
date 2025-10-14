@@ -7,12 +7,14 @@
 ## ⚡ Quick Commands
 
 ### AI-Powered Test Generation (Conversational)
+
 ```bash
 npm run chat                # Start conversational test generator
 npm run ai-generate         # CLI test generator
 ```
 
 ### Traditional AI Test Generation
+
 ```bash
 # Embed codebase for intelligent pattern reuse
 npm run start embed
@@ -26,6 +28,7 @@ npm run start -- generate \
 ```
 
 ### Run Tests by Tag
+
 ```bash
 npm run test:smoke           # Quick smoke tests
 npm run test:regression      # Full regression suite
@@ -38,6 +41,7 @@ npm run test:responsive      # Responsive design tests
 ```
 
 ### Run Tests by Environment
+
 ```bash
 npm run test:smoke:dev       # Smoke on dev
 npm run test:smoke:stage     # Smoke on stage
@@ -46,6 +50,7 @@ npm run test:critical:prod   # Critical tests on production
 ```
 
 ### Adobe Team Tests
+
 ```bash
 npm run test:adobe           # All Adobe tests
 npm run test:adobe:smoke     # Adobe smoke tests
@@ -54,6 +59,7 @@ npm run test:adobe:stage     # Adobe tests on stage
 ```
 
 ### Advanced Tag Combinations
+
 ```bash
 # Multiple tags (OR)
 npx playwright test -g "@smoke|@critical"
@@ -110,20 +116,22 @@ ArchitekTest/
 
 ```typescript
 // feature.ts - Test scenarios
-export const SCENARIOS = [{
-  id: 'BC001',
-  description: 'Test description',
-  priority: 'critical',
-  category: 'functional',
-  tags: ['@smoke', '@regression', '@critical'],
-  steps: ['Step 1', 'Step 2'],
-  expectedResults: ['Result 1', 'Result 2'],
-  requirements: ['REQ-001'],
-  jiraTickets: ['ADOBE-1234'],
-  estimatedTime: 60,
-  environments: ['dev', 'stage', 'prod'],
-  browsers: ['chrome', 'firefox'],
-}];
+export const SCENARIOS = [
+  {
+    id: 'BC001',
+    description: 'Test description',
+    priority: 'critical',
+    category: 'functional',
+    tags: ['@smoke', '@regression', '@critical'],
+    steps: ['Step 1', 'Step 2'],
+    expectedResults: ['Result 1', 'Result 2'],
+    requirements: ['REQ-001'],
+    jiraTickets: ['ADOBE-1234'],
+    estimatedTime: 60,
+    environments: ['dev', 'stage', 'prod'],
+    browsers: ['chrome', 'firefox'],
+  },
+];
 ```
 
 ---
@@ -153,12 +161,12 @@ export const SCENARIOS = [{
 ## 📊 Helper Functions
 
 ```typescript
-import { 
+import {
   getScenariosByTag,
   getScenarioById,
   getScenariosByPriority,
   getTestSummary,
-  printTestSummary
+  printTestSummary,
 } from './feature';
 
 // Get tests by tag
@@ -179,19 +187,23 @@ printTestSummary();
 ## 🔗 Documentation Links
 
 ### Getting Started
+
 - [Quick Start](docs/getting-started/QUICK_START.md) - Get up and running
 - [AI Features Guide](docs/ai-features/AI_TEST_GENERATION_GUIDE.md) - AI-powered test generation
 
 ### Architecture
+
 - [Blueprint](docs/architecture/BLUEPRINT.md) - Framework architecture
 - [Your Enhanced Architecture](docs/architecture/YOUR_ENHANCED_ARCHITECTURE.md) - Architecture details
 - [Framework Comparison](docs/architecture/FRAMEWORK_COMPARISON.md) - vs Nala comparison
 
 ### Configuration
+
 - [Playwright Config](docs/configuration/PLAYWRIGHT_CONFIG_GUIDE.md) - Playwright setup
 - [URL Management](docs/configuration/PAGE_URLS_GUIDE.md) - URL configuration
 
 ### Guides
+
 - [Test Design Best Practices](docs/guides/TEST_DESIGN_BEST_PRACTICES.md) - Professional test design
 - [Scaling Guide](docs/guides/SCALING_GUIDE.md) - Scale to 10+ teams
 - [Migration Guide](docs/guides/MIGRATION_GUIDE.md) - Migration tips
@@ -201,12 +213,14 @@ printTestSummary();
 ## 💡 Common Patterns
 
 ### Pre-Deployment Checks
+
 ```bash
 npm run test:smoke:stage     # Before stage deployment
 npm run test:critical:prod   # Before prod deployment
 ```
 
 ### Feature Testing
+
 ```bash
 npm run test:ai              # Test AI features
 npm run test:a11y            # Test accessibility
@@ -214,6 +228,7 @@ npm run test:adobe:brand     # Test specific feature
 ```
 
 ### Priority-Based Testing
+
 ```bash
 npm run test:critical        # Critical tests first
 npm run test:smoke           # Then smoke tests
@@ -221,6 +236,7 @@ npm run test:regression      # Full regression last
 ```
 
 ### CI/CD Integration
+
 ```bash
 # In GitHub Actions
 npm run test:smoke           # On every push
@@ -254,6 +270,7 @@ npm run test:performance
 ## ⚙️ Configuration
 
 ### Environment Variables
+
 ```bash
 # Set test environment
 export TEST_ENV=stage
@@ -263,6 +280,7 @@ TEST_ENV=prod npm run test:critical
 ```
 
 ### Model Setup (for AI features)
+
 ```bash
 # Install Ollama
 curl -fsSL https://ollama.ai/install.sh | sh
@@ -297,4 +315,3 @@ printTestSummary();
 ---
 
 **Built with ❤️ for efficient test automation** 🚀
-

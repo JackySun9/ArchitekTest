@@ -18,11 +18,13 @@ Adobe's **production test suite** for their Milo marketing pages. This is what t
 ## 📚 What Makes Nala Special?
 
 ### **1. Extreme Simplicity**
+
 - Only 3 files per feature (not 4, not 5)
 - Each file has ONE clear purpose
 - No confusion about where things go
 
 ### **2. Data-Driven**
+
 Everything is driven from the spec file:
 
 ```javascript
@@ -48,6 +50,7 @@ module.exports = {
 **Everything you need** in one place!
 
 ### **3. Tag-Based Execution**
+
 ```bash
 npx playwright test -g@smoke         # Smoke tests
 npx playwright test -g@regression    # Regression tests
@@ -58,7 +61,9 @@ npx playwright test -g"@smoke|@critical"  # Multiple tags
 Clean, simple, powerful.
 
 ### **4. Production-Ready**
+
 This isn't a toy example. Adobe uses this for:
+
 - Multiple teams
 - Multiple environments (dev/stage/prod)
 - Hundreds of tests
@@ -75,20 +80,22 @@ module.exports = {
   FeatureName: 'Quote Block',
   features: [
     {
-      tcid: '0',                    // Test Case ID
-      name: '@Quote @smoke',         // Test name (includes tags!)
-      path: '/path/to/page',         // Where to test
-      data: {                        // Test data
+      tcid: '0', // Test Case ID
+      name: '@Quote @smoke', // Test name (includes tags!)
+      path: '/path/to/page', // Where to test
+      data: {
+        // Test data
         quoteCopy: 'Expected text',
         figCaption: 'Author name',
       },
-      tags: '@smoke @regression',    // Tags for filtering
+      tags: '@smoke @regression', // Tags for filtering
     },
   ],
 };
 ```
 
 **Key Insights:**
+
 - ✅ Test data lives WITH the test spec
 - ✅ Tags are part of the test name
 - ✅ Simple JavaScript object (easy to understand)
@@ -102,14 +109,14 @@ module.exports = {
 export default class Quote {
   constructor(page) {
     this.page = page;
-    
+
     // Locators
     this.quote = this.page.locator('.quote');
     this.quoteCopy = this.quote.locator('p.quote-copy');
     this.quoteFigCaption = this.quote.locator('p.figcaption');
     this.quoteFigCaptionCite = this.quote.locator('cite p');
   }
-  
+
   // Optional: CSS properties for validation
   get cssProperties() {
     return {
@@ -122,6 +129,7 @@ export default class Quote {
 ```
 
 **Key Insights:**
+
 - ✅ ONLY locators (no test logic!)
 - ✅ Simple constructor pattern
 - ✅ Chainable locators (`this.quote.locator()`)
@@ -139,7 +147,6 @@ import spec from '../features/quote.spec.js';
 let obj;
 
 test.describe('Milo Quote block test suite', () => {
-  
   test.beforeEach(async ({ page }) => {
     obj = new Quote(page);
   });
@@ -147,7 +154,7 @@ test.describe('Milo Quote block test suite', () => {
   // Test - 0
   test(`${spec.features[0].name}`, async ({ page, baseURL }) => {
     const feature = spec.features[0];
-    
+
     // Step 1: Navigate
     await test.step('Go to Quote block test page', async () => {
       await page.goto(`${baseURL}${feature.path}`);
@@ -157,7 +164,7 @@ test.describe('Milo Quote block test suite', () => {
     // Step 2: Verify content
     await test.step('Verify Quote block content', async () => {
       const { data } = feature;
-      
+
       await expect(obj.quote).toBeVisible();
       await expect(obj.quoteCopy).toContainText(data.quoteCopy);
       await expect(obj.quoteFigCaption).toContainText(data.figCaption);
@@ -167,6 +174,7 @@ test.describe('Milo Quote block test suite', () => {
 ```
 
 **Key Insights:**
+
 - ✅ Imports both spec and page object
 - ✅ Test name comes from spec (`${spec.features[0].name}`)
 - ✅ Data comes from spec (`feature.data`)
@@ -177,15 +185,16 @@ test.describe('Milo Quote block test suite', () => {
 
 ### **1. Separation of Concerns**
 
-| File | Contains | Doesn't Contain |
-|------|----------|-----------------|
-| **spec.js** | Test specs, test data, metadata | Test logic, locators |
-| **page.js** | Locators, simple helpers | Test logic, test data |
-| **test.js** | Test implementation | Hardcoded data, selectors |
+| File        | Contains                        | Doesn't Contain           |
+| ----------- | ------------------------------- | ------------------------- |
+| **spec.js** | Test specs, test data, metadata | Test logic, locators      |
+| **page.js** | Locators, simple helpers        | Test logic, test data     |
+| **test.js** | Test implementation             | Hardcoded data, selectors |
 
 ### **2. Data-Driven Testing**
 
 All test data in the spec file means:
+
 - ✅ Easy to add new test cases (just add to array)
 - ✅ Easy to update test data (one place)
 - ✅ Non-technical people can update data
@@ -194,6 +203,7 @@ All test data in the spec file means:
 ### **3. Tag-Based Organization**
 
 Tags enable:
+
 - ✅ Run smoke tests before deployment
 - ✅ Run regression tests nightly
 - ✅ Run feature-specific tests during development
@@ -202,6 +212,7 @@ Tags enable:
 ### **4. Test Case IDs**
 
 Every test has a unique ID (tcid):
+
 - ✅ Traceability to requirements
 - ✅ Link to JIRA tickets
 - ✅ Reference in bug reports
@@ -209,18 +220,18 @@ Every test has a unique ID (tcid):
 
 ## 📊 Comparison: Your Framework vs Nala
 
-| Aspect | Your Framework | Nala | Winner |
-|--------|----------------|------|--------|
-| **Language** | TypeScript ✨ | JavaScript | **You** 🏆 |
-| **Files per feature** | 4 | 3 | **Nala** |
-| **Type Safety** | ✅ Yes | ❌ No | **You** 🏆 |
-| **Simplicity** | Good | Excellent | **Nala** |
-| **Metadata** | Rich (JIRA, requirements, etc.) | Basic | **You** 🏆 |
-| **Test Data** | Separate folder | In spec file | **Nala** (simpler) |
-| **Tags** | Array | In string | **Tie** ✅ |
-| **Helper Functions** | Many ✨ | Few | **You** 🏆 |
-| **Production Use** | New | Battle-tested | **Nala** |
-| **Learning Curve** | Low | Very Low | **Nala** |
+| Aspect                | Your Framework                  | Nala          | Winner             |
+| --------------------- | ------------------------------- | ------------- | ------------------ |
+| **Language**          | TypeScript ✨                   | JavaScript    | **You** 🏆         |
+| **Files per feature** | 4                               | 3             | **Nala**           |
+| **Type Safety**       | ✅ Yes                          | ❌ No         | **You** 🏆         |
+| **Simplicity**        | Good                            | Excellent     | **Nala**           |
+| **Metadata**          | Rich (JIRA, requirements, etc.) | Basic         | **You** 🏆         |
+| **Test Data**         | Separate folder                 | In spec file  | **Nala** (simpler) |
+| **Tags**              | Array                           | In string     | **Tie** ✅         |
+| **Helper Functions**  | Many ✨                         | Few           | **You** 🏆         |
+| **Production Use**    | New                             | Battle-tested | **Nala**           |
+| **Learning Curve**    | Low                             | Very Low      | **Nala**           |
 
 ### **Verdict**: Your framework is better in many ways! 🎉
 
@@ -252,12 +263,14 @@ But Nala's simplicity is worth learning from.
 ### **Option A: Keep Your Current Structure** ⭐ Recommended
 
 Your current structure is excellent! You've already learned from Nala:
+
 - ✅ Separation of concerns
 - ✅ Tag-based execution
 - ✅ Data-driven testing
 - ✅ Page objects
 
 **And you have advantages:**
+
 - ✅ TypeScript (type safety)
 - ✅ Rich metadata
 - ✅ Helper functions
@@ -284,6 +297,7 @@ After (3 files):
 ```
 
 **Steps:**
+
 1. Merge `brand-concierge.feature.ts` + test data → `brand-concierge.spec.ts`
 2. Rename current `brand-concierge.spec.ts` → `brand-concierge.test.ts`
 3. Keep `brand-concierge.page.ts` as-is
@@ -291,6 +305,7 @@ After (3 files):
 ### **Option C: Hybrid Approach** (Best of both worlds)
 
 Use 3-file pattern but keep your advantages:
+
 - ✅ TypeScript
 - ✅ Rich metadata
 - ✅ Helper functions
@@ -301,6 +316,7 @@ Use 3-file pattern but keep your advantages:
 ## 📦 What We've Created for You
 
 ### **1. Examples**
+
 ```
 examples/nala-style/
 ├── quote.spec.ts                   ← Simple example
@@ -313,6 +329,7 @@ examples/nala-style/
 ```
 
 ### **2. Documentation**
+
 ```
 docs/guides/
 ├── MILO_NALA_STRUCTURE.md          ← Detailed guide
@@ -323,19 +340,23 @@ docs/guides/
 ## 🎓 Key Takeaways
 
 ### **What Nala Does Well**
+
 1. ✅ **Simplicity** - 3 files, clear purpose
 2. ✅ **Data-driven** - All data in spec
 3. ✅ **Tags** - Flexible execution
 4. ✅ **Production-proven** - Actually used by Adobe
 
 ### **What You Do Well**
+
 1. ✅ **TypeScript** - Type safety
 2. ✅ **Rich metadata** - Better traceability
 3. ✅ **Organization** - Well-structured
 4. ✅ **Helper functions** - More maintainable
 
 ### **Best Approach**
+
 Combine the best of both:
+
 - Nala's simplicity (3-file pattern)
 - Your advantages (TypeScript, metadata, helpers)
 
@@ -344,6 +365,7 @@ Combine the best of both:
 ### **Don't Refactor Everything!**
 
 Your current structure is **excellent**. You've already incorporated Nala's best practices:
+
 - ✅ Separation of concerns
 - ✅ Tag-based execution
 - ✅ Data-driven testing
@@ -352,6 +374,7 @@ Your current structure is **excellent**. You've already incorporated Nala's best
 ### **Optional Improvements**
 
 If you want to simplify:
+
 1. Consolidate to 3 files per feature
 2. Move test data into spec files
 3. Use `.test.ts` for actual tests
@@ -370,6 +393,7 @@ But these are **optional**. Your current structure is production-ready!
 Adobe's Nala is a **great example** of simplicity and production-readiness.
 
 But your framework **already incorporates** Nala's best practices and **adds significant improvements**:
+
 - TypeScript for type safety
 - Rich metadata for traceability
 - Better organization
@@ -387,6 +411,3 @@ But your framework **already incorporates** Nala's best practices and **adds sig
 - [Detailed Guide](/docs/guides/MILO_NALA_STRUCTURE.md)
 
 **Happy Testing!** 🎉
-
-
-
