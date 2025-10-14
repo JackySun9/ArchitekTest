@@ -10,10 +10,10 @@
  *   > "Update BC001 to check for loading indicators"
  */
 
-import { Ollama } from '@langchain/community/llms/ollama';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { ConversationChain } from 'langchain/chains';
 import { BufferMemory } from 'langchain/memory';
+import { LLMProviderFactory } from './llm-provider';
 import fs from 'fs-extra';
 import path from 'path';
 import readline from 'readline';
@@ -42,19 +42,17 @@ interface GeneratedTest {
 }
 
 export class ConversationalTestGenerator {
-  private llm: Ollama;
+  private llm: any;
   private memory: BufferMemory;
-  private chain: ConversationChain;
+  private chain!: ConversationChain;
   private projectRoot: string;
   private currentTeam: string = 'adobe-team';
   private currentFeature: string = 'brand-concierge';
 
   constructor() {
-    this.llm = new Ollama({
-      model: 'deepseek-r1:14b',
-      baseUrl: 'http://localhost:11434',
-      temperature: 0.7,
-    });
+    // Use the new LLM provider factory (supports Cursor, Claude, OpenAI, Ollama)
+    console.log('🚀 Initializing Conversational Test Generator...');
+    this.llm = LLMProviderFactory.createLLM();
 
     this.memory = new BufferMemory({
       returnMessages: true,
@@ -94,9 +92,9 @@ Response (provide actionable test code):
 `);
 
     this.chain = new ConversationChain({
-      llm: this.llm,
+      llm: this.llm as any,
       memory: this.memory,
-      prompt: prompt,
+      prompt: prompt as any,
     });
   }
 

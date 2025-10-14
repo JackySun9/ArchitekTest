@@ -197,6 +197,11 @@ export function getRecommendedModel(task: 'code-generation' | 'reasoning' | 'fas
   const provider = (process.env.LLM_PROVIDER || 'claude') as LLMProvider;
 
   const recommendations: Record<LLMProvider, Record<string, string>> = {
+    cursor: {
+      'code-generation': 'claude-3-5-sonnet-20241022', // Uses Cursor's model
+      'reasoning': 'claude-3-5-sonnet-20241022',
+      'fast': 'claude-3-5-haiku-20241022',
+    },
     claude: {
       'code-generation': 'claude-3-5-sonnet-20241022', // Best for code
       'reasoning': 'claude-3-5-sonnet-20241022', // Best reasoning
