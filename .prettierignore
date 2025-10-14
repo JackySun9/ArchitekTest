@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+test-results/
+test-report/
+playwright-report/
+*.json
+package-lock.json
+enhanced_vector_store.json
+.git/
+.husky/

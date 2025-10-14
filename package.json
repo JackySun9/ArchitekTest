@@ -6,34 +6,35 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "lint": "tsc --noEmit",
+    "lint": "eslint . --ext .ts --max-warnings 0",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"**/*.{ts,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
+    "typecheck": "tsc --noEmit",
     "start": "ts-node src/index.ts",
-    
+    "prepare": "husky",
     "// ============ AI-POWERED TEST GENERATION ============": "",
     "chat": "ts-node src/conversational-test-generator.ts",
     "chat-test": "ts-node src/conversational-test-generator.ts",
     "ai-generate": "ts-node src/cli-test-generator.ts",
-    
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
     "report": "playwright show-report",
     "test-models": "ts-node scripts/test-models.ts",
-    
     "// ============ TAG-BASED TEST SCRIPTS (Nala Style) ============": "",
     "test:smoke": "playwright test -g @smoke",
     "test:regression": "playwright test -g @regression",
     "test:critical": "playwright test -g @critical",
-    "test:ai": "playwright test -g @ai",
+    "test:ai": "playwright test teams/ai-team/",
     "test:chat": "playwright test -g @chat",
     "test:a11y": "playwright test -g @a11y",
     "test:performance": "playwright test -g @performance",
     "test:security": "playwright test -g @security",
     "test:responsive": "playwright test -g @responsive",
-    "test:mobile": "playwright test -g @mobile",
+    "test:mobile": "playwright test --project=adobe-mobile-chrome",
     "test:edge-cases": "playwright test -g @edge-cases",
-    
     "// ============ TEAM-SPECIFIC TEST SCRIPTS ============": "",
     "test:adobe": "playwright test --config=config/teams/adobe.config.ts",
     "test:adobe:dev": "TEST_ENV=dev playwright test --config=config/teams/adobe.config.ts",
@@ -44,36 +45,28 @@
     "test:adobe:critical": "playwright test --config=config/teams/adobe.config.ts -g @critical",
     "test:adobe:global": "playwright test --config=config/teams/adobe.config.ts teams/adobe-team/global/",
     "test:adobe:brand": "playwright test --config=config/teams/adobe.config.ts -g @brand-concierge",
-    
     "test:search": "playwright test --config=config/teams/search.config.ts",
     "test:search:dev": "TEST_ENV=dev playwright test --config=config/teams/search.config.ts",
     "test:search:stage": "TEST_ENV=stage playwright test --config=config/teams/search.config.ts",
     "test:search:prod": "TEST_ENV=prod playwright test --config=config/teams/search.config.ts",
-    
     "test:auth": "playwright test --config=config/teams/auth.config.ts",
     "test:auth:dev": "TEST_ENV=dev playwright test --config=config/teams/auth.config.ts",
     "test:auth:stage": "TEST_ENV=stage playwright test --config=config/teams/auth.config.ts",
     "test:auth:prod": "TEST_ENV=prod playwright test --config=config/teams/auth.config.ts",
-    
-    "test:ai": "playwright test teams/ai-team/",
     "test:payment": "playwright test teams/payment-team/",
     "test:analytics": "playwright test teams/analytics-team/",
     "test:notification": "playwright test teams/notification-team/",
     "test:messaging": "playwright test teams/messaging-team/",
     "test:profile": "playwright test teams/profile-team/",
     "test:settings": "playwright test teams/settings-team/",
-    
     "// ============ BROWSER-SPECIFIC SCRIPTS ============": "",
     "test:chromium": "playwright test --project=adobe-chromium",
     "test:firefox": "playwright test --project=adobe-firefox",
     "test:webkit": "playwright test --project=adobe-webkit",
-    "test:mobile": "playwright test --project=adobe-mobile-chrome",
-    
     "// ============ ENVIRONMENT SCRIPTS (ALL TEAMS) ============": "",
     "test:all:dev": "TEST_ENV=dev playwright test",
     "test:all:stage": "TEST_ENV=stage playwright test",
     "test:all:prod": "TEST_ENV=prod playwright test",
-    
     "// ============ COMBINED SCRIPTS (Tags + Environment) ============": "",
     "test:smoke:dev": "TEST_ENV=dev playwright test -g @smoke",
     "test:smoke:stage": "TEST_ENV=stage playwright test -g @smoke",
@@ -101,7 +94,23 @@
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.14.2",
     "@types/yargs": "^17.0.32",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.2"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   }
 }

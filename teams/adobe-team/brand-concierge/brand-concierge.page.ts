@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from '../../../shared/base-page';
-import { ADOBE_PAGES, getPageURL } from '../../../config/teams/adobe-urls';
+import { ADOBE_PAGES, getPageURL, getAdobePages } from '../../../config/teams/adobe-urls';
 import { ENVIRONMENTS, getTeamEnvironment } from '../../../config/environments';
 
 /**
@@ -50,17 +50,30 @@ export class BrandConciergePage extends BasePage {
 
   // Navigation methods
   async navigateToBrandConcierge(): Promise<void> {
-    const url = getPageURL(this.baseURL, ADOBE_PAGES.brandConcierge);
+    // Get environment-specific page URLs (handles different paths for dev/stage/prod)
+    const pages = getAdobePages(this.env);
+    const url = getPageURL(this.baseURL, pages.brandConcierge);
+    
+    console.log(`🌍 Navigating to Brand Concierge (${this.env}): ${url}`);
+    
     await this.navigate(url);
     await this.waitForPageLoad();
     await this.page.waitForSelector('h1, h2', { timeout: 10000 }).catch(() => {});
   }
 
   /**
-   * Get the full URL for any Adobe page
+   * Get the full URL for any Adobe page (environment-aware)
    */
   getURL(pagePath: string): string {
     return getPageURL(this.baseURL, pagePath);
+  }
+
+  /**
+   * Get environment-specific Brand Concierge URL
+   */
+  getBrandConciergeURL(): string {
+    const pages = getAdobePages(this.env);
+    return getPageURL(this.baseURL, pages.brandConcierge);
   }
 
   // Page verification methods

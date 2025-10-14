@@ -95,17 +95,23 @@ export function buildURL(baseURL: string, pagePath: string, params?: Record<stri
  * Environment-specific overrides (if needed)
  * 
  * Some pages might have different paths in different environments
+ * Example: Brand Concierge has different paths in stage vs prod
  */
 export const ADOBE_PAGES_OVERRIDES = {
   dev: {
-    // In dev, brand concierge might be on a different path
-    brandConcierge: '/dev/brand-concierge',
+    // Development environment paths
+    brandConcierge: '/cc-shared/fragments/uar/brand-concierge/brand-concierge',
   },
   stage: {
-    // Use default paths from ADOBE_PAGES
+    // Stage environment paths (update these with your actual stage paths)
+    brandConcierge: '/cc-shared/fragments/uar/brand-concierge/brand-concierge',
+    // Example if stage has different path:
+    // brandConcierge: '/stage/brand-concierge',
   },
   prod: {
-    // Use default paths from ADOBE_PAGES
+    // Production environment paths (update these with your actual prod paths)
+    brandConcierge: '/products/brand-concierge',
+    // Or whatever your actual prod path is
   },
 };
 
