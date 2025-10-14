@@ -20,7 +20,17 @@ const ENV_CONFIG: EnvConfig = {
   optional: [
     'TEST_ENV',         // Environment: dev, stage, prod (has default)
     'TEST_TEAM',        // Team name for running specific team tests
-    'OLLAMA_MODEL',     // AI model for test generation
+    // AI Provider Configuration
+    'LLM_PROVIDER',     // AI provider: claude, openai, or ollama
+    'LLM_TEMPERATURE',  // Temperature for LLM (0.0-1.0)
+    'ANTHROPIC_API_KEY', // Claude API key
+    'CLAUDE_MODEL',     // Claude model name
+    'OPENAI_API_KEY',   // OpenAI API key
+    'OPENAI_MODEL',     // OpenAI model name
+    'OLLAMA_MODEL',     // Ollama model for local AI
+    'OLLAMA_BASE_URL',  // Ollama server URL
+    'OLLAMA_EMBED_MODEL', // Ollama embedding model
+    // Other Configuration
     'LOG_LEVEL',        // Logging level: DEBUG, INFO, WARN, ERROR
     'BASE_URL',         // Override base URL for testing
     'CI',               // CI environment flag

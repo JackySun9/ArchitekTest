@@ -2,29 +2,26 @@ import 'dotenv/config';
 import { glob } from 'glob';
 import { promises as fs } from 'fs';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
-import { OllamaEmbeddings } from '@langchain/community/embeddings/ollama';
 import { MemoryVectorStore } from 'langchain/vectorstores/memory';
 import { Document } from '@langchain/core/documents';
 import { RetrievalQAChain } from 'langchain/chains';
-import { Ollama } from '@langchain/community/llms/ollama';
 import { PromptTemplate } from '@langchain/core/prompts';
+import { LLMProviderFactory } from './llm-provider';
 
 export class EnhancedRAGEngine {
-  private embeddings: OllamaEmbeddings;
+  private embeddings: any;
   private vectorStore: MemoryVectorStore | null = null;
-  private llm: Ollama;
+  private llm: any;
   private qaChain: RetrievalQAChain | null = null;
 
   constructor() {
-    this.embeddings = new OllamaEmbeddings({
-      model: 'nomic-embed-text:latest',
-      baseUrl: 'http://localhost:11434',
-    });
-
-    this.llm = new Ollama({
-      model: 'gemma3:27b',
-      baseUrl: 'http://localhost:11434',
-    });
+    console.log('🚀 Initializing Enhanced RAG Engine with configurable LLM provider...');
+    
+    // Use configurable embeddings provider
+    this.embeddings = LLMProviderFactory.createEmbeddings();
+    
+    // Use configurable LLM provider
+    this.llm = LLMProviderFactory.createLLM();
   }
 
   async embedCodebase(sharedDir = 'shared'): Promise<void> {

@@ -1,10 +1,10 @@
-import { Ollama } from '@langchain/community/llms/ollama';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { Tool } from '@langchain/core/tools';
 import { EnhancedRAGEngine } from './enhanced-rag';
 import { VisualTestingTool } from './visual-testing-tool';
 import { SelfHealingTool } from './self-healing-tool';
 import { EnhancedDebuggingTool } from './enhanced-debugging-tool';
+import { LLMProviderFactory } from './llm-provider';
 import { chromium } from 'playwright';
 import fs from 'fs-extra';
 import path from 'path';
@@ -909,35 +909,17 @@ test.describe('${this.toTitleCase(featureName)} - Comprehensive Test Suite', () 
 }
 
 export class TestGenerationAgent {
-  private llm: Ollama;
+  private llm: any;
   private ragEngine: EnhancedRAGEngine;
   private tools: Tool[];
 
   constructor() {
+    console.log('🚀 Initializing Test Generation Agent with configurable LLM provider...');
+    
     this.ragEngine = new EnhancedRAGEngine();
     
-    // Try to load config, fallback to environment variables
-    let modelName = 'deepseek-r1:14b'; // Default to tested best model
-    let baseUrl = 'http://localhost:11434';
-    
-    try {
-      // Try to import config if it exists
-      const config = require('../config');
-      modelName = config.CONFIG?.ollama?.model || modelName;
-      baseUrl = config.CONFIG?.ollama?.baseUrl || baseUrl;
-    } catch (error) {
-      // Config doesn't exist, use environment variables or defaults
-      modelName = process.env.OLLAMA_MODEL || modelName;
-      baseUrl = process.env.OLLAMA_BASE_URL || baseUrl;
-    }
-    
-    console.log(`🤖 Using model: ${modelName}`);
-    
-    // Configure LLM with best available model
-    this.llm = new Ollama({
-      model: modelName,
-      baseUrl: baseUrl,
-    });
+    // Use the configurable LLM provider (Claude, OpenAI, or Ollama)
+    this.llm = LLMProviderFactory.createLLM();
     
     this.tools = [
       new PageAnalysisTool(),

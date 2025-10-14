@@ -14,7 +14,7 @@
 - 🔧 **Self-Healing Tests**: Automatically detects and repairs broken selectors with AI-powered suggestions
 - 🔍 **AI-Powered Debugging**: Intelligent failure analysis with root cause identification and fix recommendations
 - 🎯 **Dynamic Decision Making**: AI chooses the right tools based on context, not fixed pipelines
-- 🔒 **Privacy-First**: Runs entirely locally with Ollama - no data leaves your machine
+- 🤖 **Flexible AI**: Use Claude API (same as Cursor!), OpenAI, or local Ollama
 - 🏗️ **Enterprise-Grade**: Generates comprehensive test suites with accessibility, performance, and security coverage
 - 📚 **Context-Aware**: Learns from your existing code patterns and reuses them intelligently
 - ⚡ **95% Time Savings**: Generate in 2 hours what would take 40 hours manually
@@ -24,14 +24,41 @@
 
 ### Prerequisites
 
+**Choose Your AI Provider:**
+
+#### **Option A: Claude API** (🏆 RECOMMENDED - Same as Cursor!)
 ```bash
-# Install Ollama for local AI models
+# 1. Get API key from https://console.anthropic.com/
+# 2. Configure in .env:
+cp .env.example .env
+# Edit .env and add:
+#   LLM_PROVIDER=claude
+#   ANTHROPIC_API_KEY=sk-ant-api03-your-key-here
+```
+**Benefits:** Best code quality, no local setup, fast, reliable
+
+#### **Option B: OpenAI API** (Alternative)
+```bash
+# 1. Get API key from https://platform.openai.com/api-keys
+# 2. Configure in .env:
+#   LLM_PROVIDER=openai
+#   OPENAI_API_KEY=sk-your-key-here
+```
+
+#### **Option C: Local Ollama** (Free, requires powerful hardware)
+```bash
+# Install Ollama
 curl -fsSL https://ollama.ai/install.sh | sh
 
-# Pull the BEST TESTED models (Updated for optimal quality!)
+# Pull models
 ollama pull nomic-embed-text:latest
-ollama pull deepseek-r1:14b  # 🏆 RECOMMENDED: Superior test generation quality
+ollama pull deepseek-r1:14b
+
+# Configure in .env:
+#   LLM_PROVIDER=ollama
 ```
+
+📖 **See [Claude API Setup Guide](docs/guides/CLAUDE_API_SETUP.md) for detailed instructions**
 
 ### Installation
 

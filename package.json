@@ -77,8 +77,10 @@
     "test:adobe:smoke:stage": "TEST_ENV=stage playwright test --config=config/teams/adobe.config.ts -g @smoke"
   },
   "dependencies": {
+    "@langchain/anthropic": "^0.3.31",
     "@langchain/community": "^0.3.0",
     "@langchain/core": "^0.3.0",
+    "@langchain/openai": "^0.6.16",
     "@types/pngjs": "^6.0.5",
     "dotenv": "^16.4.5",
     "fs-extra": "^11.2.0",
