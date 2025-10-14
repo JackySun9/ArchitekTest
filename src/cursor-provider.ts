@@ -73,8 +73,16 @@ export class CursorProvider {
       return process.env.ANTHROPIC_API_KEY;
     }
 
-    // Note: Cursor stores API keys in encrypted storage, not directly accessible
-    // User needs to set ANTHROPIC_API_KEY or CURSOR_API_KEY in .env
+    // Note: Cursor stores API keys in encrypted storage for security
+    // We cannot access them programmatically (this is intentional for security)
+    // 
+    // LIMITATION: User must set ANTHROPIC_API_KEY in .env
+    // But they can use the SAME key they configured in Cursor!
+    //
+    // What we DO auto-detect:
+    // - Cursor installation
+    // - Cursor's model selection
+    // - Cursor's configuration preferences
     
     return null;
   }

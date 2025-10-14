@@ -168,10 +168,12 @@ Your Cursor already has MCP servers configured in `~/.cursor/mcp.json`:
 
 ### For Cursor Users:
 
-1. **Zero Configuration** ✨
-   - No manual setup
-   - Auto-detects everything
-   - Uses your Cursor model
+1. **Simplified Configuration** ✨
+   - Auto-detects Cursor installation
+   - Auto-uses your Cursor model
+   - Just add same API key you use in Cursor
+   
+   **Note:** API key still required due to Cursor's encrypted storage (security feature)
 
 2. **Shared API Key** 💰
    - Single billing account

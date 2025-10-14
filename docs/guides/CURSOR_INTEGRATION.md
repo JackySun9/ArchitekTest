@@ -2,16 +2,28 @@
 
 ## ✨ What is This?
 
-If you're using **Cursor IDE**, Test Architect AI can now **automatically detect and use** Cursor's API key and model configuration. **No additional setup needed!**
+If you're using **Cursor IDE**, Test Architect AI can now **automatically detect and use** Cursor's model configuration. You'll use the **same API key** you configured in Cursor.
+
+### ⚠️ Important Clarification
+
+**What Gets Auto-Detected:**
+- ✅ Cursor installation
+- ✅ Your Cursor model selection (e.g., Claude 4.5 Sonnet)
+- ✅ Cursor configuration preferences
+
+**What You Still Need to Configure:**
+- 🔑 **ANTHROPIC_API_KEY in .env** (use the same key you put in Cursor)
+
+**Why?** Cursor stores API keys in encrypted storage for security. We can't access them programmatically, but you can use the **same key** you already have!
 
 ### 🎁 Benefits
 
 | Feature | Before | With Cursor Integration |
 |---------|--------|------------------------|
-| **Setup** | Manual API key configuration | ✅ **Zero config** - auto-detected |
-| **API Key** | Need separate key | ✅ **Shares with Cursor** |
-| **Model** | Manual selection | ✅ **Uses your Cursor model** |
-| **Cost** | Separate billing | ✅ **Same billing as Cursor** |
+| **Setup** | Multiple manual steps | ✅ **Simplified** - just add API key |
+| **API Key** | Need to get new key | ✅ **Use same key as Cursor** |
+| **Model** | Manual selection | ✅ **Auto-uses your Cursor model** |
+| **Cost** | Risk of separate billing | ✅ **Same billing as Cursor** |
 
 ---
 

@@ -26,16 +26,17 @@
 
 **Choose Your AI Provider:**
 
-#### **Option A: Cursor IDE** (🏆 NEW! - Zero Configuration!)
+#### **Option A: Cursor IDE** (🏆 NEW! - Simplified Setup!)
 ```bash
-# If you're using Cursor IDE, it auto-detects everything!
-# Just make sure ANTHROPIC_API_KEY is in .env:
+# If you're using Cursor IDE, it auto-detects your model!
+# Add the same API key you use in Cursor:
 cp .env.example .env
 # Edit .env and add:
 #   LLM_PROVIDER=cursor  # (default)
 #   ANTHROPIC_API_KEY=sk-ant-api03-your-key-here
 ```
-**Benefits:** Zero config, uses Cursor's model, shares API key, instant setup! ✨
+**Benefits:** Auto-detects Cursor's model, uses same API key, simplified setup! ✨  
+**Note:** API key required (Cursor stores it encrypted for security)
 
 #### **Option B: Claude API** (Direct)
 ```bash
