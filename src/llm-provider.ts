@@ -4,8 +4,9 @@ import { ChatOpenAI } from '@langchain/openai';
 import { Ollama } from '@langchain/community/llms/ollama';
 import { BaseChatModel } from '@langchain/core/language_models/chat_models';
 import { BaseLanguageModel } from '@langchain/core/language_models/base';
+import { getCursorLLMConfig, checkCursorAvailability } from './cursor-provider';
 
-export type LLMProvider = 'claude' | 'openai' | 'ollama';
+export type LLMProvider = 'cursor' | 'claude' | 'openai' | 'ollama';
 
 export interface LLMConfig {
   provider: LLMProvider;
@@ -24,11 +25,13 @@ export class LLMProviderFactory {
    * Create an LLM instance based on environment configuration
    */
   static createLLM(config?: Partial<LLMConfig>): BaseLanguageModel {
-    const provider = (config?.provider || process.env.LLM_PROVIDER || 'claude') as LLMProvider;
+    const provider = (config?.provider || process.env.LLM_PROVIDER || 'cursor') as LLMProvider;
 
     console.log(`🤖 Initializing LLM Provider: ${provider}`);
 
     switch (provider) {
+      case 'cursor':
+        return this.createCursorIntegrated(config);
       case 'claude':
         return this.createClaude(config);
       case 'openai':
@@ -38,6 +41,54 @@ export class LLMProviderFactory {
       default:
         throw new Error(`Unsupported LLM provider: ${provider}`);
     }
+  }
+
+  /**
+   * Create LLM using Cursor's configuration (default)
+   * Uses Cursor's configured model and API key if available
+   */
+  private static createCursorIntegrated(config?: Partial<LLMConfig>): ChatAnthropic {
+    console.log('🎯 Attempting to use Cursor IDE integration...');
+    
+    const cursorStatus = checkCursorAvailability();
+    console.log(cursorStatus.message);
+
+    // Try to get Cursor's configuration
+    const cursorConfig = getCursorLLMConfig();
+
+    if (cursorConfig) {
+      console.log('✅ Using Cursor\'s API key and model configuration');
+      console.log(`📦 Model: ${cursorConfig.model}`);
+      
+      return new ChatAnthropic({
+        anthropicApiKey: cursorConfig.apiKey,
+        modelName: cursorConfig.model,
+        temperature: config?.temperature || parseFloat(process.env.LLM_TEMPERATURE || '0.7'),
+        maxTokens: 4096,
+      });
+    }
+
+    // Fallback: Try to use ANTHROPIC_API_KEY from .env
+    console.log('⚠️  Cursor API key not detected, checking for ANTHROPIC_API_KEY in .env...');
+    
+    const apiKey = config?.apiKey || process.env.ANTHROPIC_API_KEY;
+    if (apiKey) {
+      console.log('✅ Using ANTHROPIC_API_KEY from .env file');
+      return new ChatAnthropic({
+        anthropicApiKey: apiKey,
+        modelName: config?.model || process.env.CLAUDE_MODEL || 'claude-3-5-sonnet-20241022',
+        temperature: config?.temperature || parseFloat(process.env.LLM_TEMPERATURE || '0.7'),
+        maxTokens: 4096,
+      });
+    }
+
+    // If nothing works, throw error with helpful message
+    throw new Error(
+      '❌ No API key found. Please either:\n' +
+      '1. Set ANTHROPIC_API_KEY in your .env file (same key Cursor uses)\n' +
+      '2. Or change LLM_PROVIDER to "ollama" for local models\n\n' +
+      'Get API key: https://console.anthropic.com/'
+    );
   }
 
   /**

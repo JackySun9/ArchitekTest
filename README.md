@@ -26,7 +26,18 @@
 
 **Choose Your AI Provider:**
 
-#### **Option A: Claude API** (🏆 RECOMMENDED - Same as Cursor!)
+#### **Option A: Cursor IDE** (🏆 NEW! - Zero Configuration!)
+```bash
+# If you're using Cursor IDE, it auto-detects everything!
+# Just make sure ANTHROPIC_API_KEY is in .env:
+cp .env.example .env
+# Edit .env and add:
+#   LLM_PROVIDER=cursor  # (default)
+#   ANTHROPIC_API_KEY=sk-ant-api03-your-key-here
+```
+**Benefits:** Zero config, uses Cursor's model, shares API key, instant setup! ✨
+
+#### **Option B: Claude API** (Direct)
 ```bash
 # 1. Get API key from https://console.anthropic.com/
 # 2. Configure in .env:
@@ -37,7 +48,7 @@ cp .env.example .env
 ```
 **Benefits:** Best code quality, no local setup, fast, reliable
 
-#### **Option B: OpenAI API** (Alternative)
+#### **Option C: OpenAI API** (Alternative)
 ```bash
 # 1. Get API key from https://platform.openai.com/api-keys
 # 2. Configure in .env:
@@ -45,7 +56,7 @@ cp .env.example .env
 #   OPENAI_API_KEY=sk-your-key-here
 ```
 
-#### **Option C: Local Ollama** (Free, requires powerful hardware)
+#### **Option D: Local Ollama** (Free, requires powerful hardware)
 ```bash
 # Install Ollama
 curl -fsSL https://ollama.ai/install.sh | sh
@@ -58,7 +69,8 @@ ollama pull deepseek-r1:14b
 #   LLM_PROVIDER=ollama
 ```
 
-📖 **See [Claude API Setup Guide](docs/guides/CLAUDE_API_SETUP.md) for detailed instructions**
+📖 **See [Cursor Integration Guide](docs/guides/CURSOR_INTEGRATION.md) for zero-config setup!**  
+📖 **Or [Claude API Setup Guide](docs/guides/CLAUDE_API_SETUP.md) for direct API access**
 
 ### Installation
 
